@@ -1,0 +1,74 @@
+/* Button.module.scss */
+
+.button {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    font-size: 16px;
+    line-height: 50px;
+    font-weight: bold;
+    border-radius: 1.25rem;
+    padding-left: 2.1875rem; /* Equivalent to px-[35px] */
+    padding-top: 1px; /* Equivalent to pt-[1px] */
+    padding-bottom: 0;
+    overflow: hidden;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    z-index: 1;
+    border: 2px solid transparent;
+  
+    &.aboutBtn {
+      /* Styling for the button when it has the 'about-btn' class */
+      border-color: #000; /* Default border color (can be adjusted) */
+    }
+  
+    & .hover-btn,
+    & .hover-bx,
+    & .hover-bx2,
+    & .hover-bx3,
+    & .hover-bx4 {
+      position: absolute;
+      transition: all 0.3s ease;
+    }
+  
+    & .hover-btn {
+      /* Styling for the hover effect boxes */
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  
+    & .hover-bx {
+      /* First hover effect box */
+      background-color: rgba(255, 255, 255, 0.2); /* Example color */
+    }
+  
+    & .hover-bx2 {
+      /* Second hover effect box */
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  
+    & .hover-bx3 {
+      /* Third hover effect box */
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+  
+    & .hover-bx4 {
+      /* Fourth hover effect box */
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  
+    &:hover {
+      .hover-btn,
+      .hover-bx,
+      .hover-bx2,
+      .hover-bx3,
+      .hover-bx4 {
+        /* Hover effect: apply the transformation when hovered */
+        transform: scale(1.1);
+      }
+    }
+  }
+  

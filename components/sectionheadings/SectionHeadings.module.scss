@@ -1,0 +1,46 @@
+/* SectionHeadings.module.scss */
+
+.sectionWrapper {
+    margin-bottom: 3.5rem;
+  }
+  
+  .heading {
+    position: relative;
+    color: black;
+    font-size: 3rem; /* Equivalent to text-5xl */
+    text-align: center;
+    cursor: scale(1.1); /* Assuming you want a scale on hover */
+  }
+  
+  .decorativeLineWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  
+  .decorativeLine {
+    position: relative;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 1px solid white;
+    border-radius: 50%;
+  }
+  
+  .decorativeLine::before, .decorativeLine::after {
+    content: '';
+    position: absolute;
+    height: 0.125rem; /* Equivalent to before:h-0.5 */
+    background-color: white;
+    top: 0.25rem; /* Equivalent to before:top-1 */
+  }
+  
+  .decorativeLine::before {
+    width: 6rem; /* Equivalent to before:w-24 */
+    right: 1.25rem; /* Equivalent to before:right-5 */
+  }
+  
+  .decorativeLine::after {
+    width: 6rem; /* Equivalent to after:w-24 */
+    left: 1.25rem; /* Equivalent to after:left-5 */
+  }
+  

@@ -1,0 +1,241 @@
+.something {
+  &__container {
+    width: 1540px;
+    height: 100vh;
+    background-image: url("/images/images/horror.png");
+    object-fit: cover;
+    display: flex; // Added for layout
+    overflow-x: scroll; // Ensure horizontal scroll on small screens
+
+    position: relative;
+    flex-shrink: 0; // Prevent shrinking
+    flex-grow: 0; // Prevent growing
+  }
+
+  &__map {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__geography {
+    fill: #ffffff;
+    stroke: #FFFFFF;
+    stroke-width: 0.5;
+
+    &:hover {
+      fill: #F53;
+    }
+
+    &:pressed {
+      fill: #E42;
+    }
+  }
+
+  &__marker {
+    transition: all 0.3s ease-in-out;
+   
+    circle {
+      stroke: #FFF;
+      stroke-width: 2;
+      transition: all 0.3s ease-in-out;
+      //  background-image: url("/images/images/gumstars.png");
+    }
+
+    text {
+      font-family: system-ui;
+      fill: #5D5A6D;
+      font-size: 12px;
+      font-weight: normal;
+      transition: all 0.3s ease-in-out;
+
+      &.active {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__line {
+    animation: dashdraw 3s linear infinite;
+  }
+
+  // New styles for the map wrapper and info box
+  &__mapWrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__infoBox {
+    position: absolute;
+    border: 3px solid #07a241;
+    text-align: center;
+    margin-top: 10%;
+    left: 70%;
+    width: 25%;
+    height: 60%;
+    background-color: rgba(255, 255, 255, 0.995);
+    padding: 1.5rem;
+    overflow-y: auto;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+  }
+
+  &__infoContent {
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #108e17;
+      padding-bottom: 0.5rem;
+     text-transform: uppercase;
+    }
+
+    p {
+      margin-bottom: 0.75rem;
+      font-size: 1.4rem;
+      line-height: 1.5;
+    }
+  }
+
+  &__infoPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #777;
+    font-size: 1.1rem;
+  }
+
+  @keyframes dashdraw {
+    from {
+      stroke-dashoffset: 10;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+.something__flagContainer {
+  width: 100%;
+  height: 200px;
+ 
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.something__flag {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+
+
+
+
+
+// .something__flagContainer {
+//   width: 60px;
+//   height: 40px;
+//   margin: 10px 0;
+//   border: 1px solid #ddd;
+//   overflow: hidden;
+// }
+
+.something__flag {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.something__customShape {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.something__shapeEditor {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  
+  h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.something__editButton {
+  padding: 8px 16px;
+  background-color: #07a241;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #058a36;
+  }
+  
+  &.active {
+    background-color: #e74c3c;
+    
+    &:hover {
+      background-color: #c0392b;
+    }
+  }
+}
+
+.something__editorControls {
+  margin-top: 15px;
+}
+
+.something__editorControl {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  
+  label {
+    width: 50px;
+    font-weight: bold;
+  }
+  
+  input {
+    margin: 0 10px;
+    
+    &[type="range"] {
+      flex-grow: 1;
+    }
+    
+    &[type="color"] {
+      width: 50px;
+      height: 30px;
+    }
+  }
+  
+  span {
+    width: 30px;
+    text-align: right;
+  }
+}
+
+
+.thebutton{
+  padding: 14px 80px;
+  border: 3px solid #07a241;
+  border-radius: 40px;
+  transition: 0.4s;
+}
+
+.thebutton:hover{
+  padding: 14px 80px;
+  border: 3px solid #07a241;
+  background-color: #07a241;
+  border-radius: 40px;
+  color: white;
+}

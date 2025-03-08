@@ -1,0 +1,17 @@
+.mapContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // padding: 20px;
+  }
+  
+  .mapFrame {
+    width: 100%;
+    max-width: 2800px;
+    height: 500px;
+    border: none;
+    border-radius: 10px;
+    // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  

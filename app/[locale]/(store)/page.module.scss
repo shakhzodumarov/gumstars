@@ -1,0 +1,386 @@
+@import "/public/css/variables.module.scss";
+
+.homePage {
+  width: 100%;
+  background-color: white;
+  scroll-behavior: smooth;
+
+  .heroContainer {
+    display: flex;
+    width: 100%;
+   height: 160vh;
+    margin-top: 160px;
+  }
+
+  .wideAdContainer {
+    width: 100%;
+    margin-top: 60px;
+    display: flex;
+    gap: 16px;
+  }
+
+  .homeSection {
+    width: 100%;
+    margin-top: 60px;
+  }
+
+  .cardsWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .blogCardContainer {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+
+  .companiesSection {
+    width: 100%;
+    margin: 90px 0 120px;
+    display: flex;
+    flex-direction: column;
+    > h2 {
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 500;
+      color: nth($color-light, 10);
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+/* Styles for the splash screen */
+.splashScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 3rem;
+  font-weight: bold;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  z-index: 999; /* Make sure it's above all other elements */
+}
+
+/* Animation for the splash screen text */
+.splashScreen h1 {
+  animation: splashAnimation 3s ease-out forwards;
+}
+
+@keyframes splashAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* Optional: You can hide the splash screen after it's done */
+.homePage {
+  &.loaded .splashScreen {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+.spantext{
+  text-align: center;
+  width: 40%;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.spanheader{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+}
+
+  .sectionHeader {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    a {
+      font-weight: 500;
+      color: nth($color-light, 8);
+      padding-right: 24px;
+      background-image: url("/images/icons/arrowIcon02.svg");
+      background-repeat: no-repeat;
+      background-position: right center;
+      transition: all 0.2s ease-out;
+      &:hover {
+        padding-right: 22px;
+      }
+      &:active {
+        color: nth($color-light, 10);
+      }
+    }
+    h2 {
+      font-weight: 600;
+      color: nth($color-light, 10);
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .companiesSection {
+    > h2 {
+      margin-bottom: 60px;
+    }
+  }
+  .sectionHeader {
+    a {
+      font-size: 1.6rem;
+    }
+    h2 {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .cardsWrapper {
+    padding-bottom: 30px;
+    overflow-x: scroll;
+  }
+  .companiesSection {
+    > h2 {
+      margin-bottom: 60px;
+    }
+  }
+  .sectionHeader {
+    a {
+      font-size: 1.4rem;
+    }
+    h2 {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .wideAdContainer {
+    height: auto;
+    flex-direction: column;
+  }
+  .blogCardContainer {
+    flex-direction: column;
+  }
+  .sectionHeader {
+    h2 {
+      font-size: 2rem;
+    }
+  }
+  .companiesSection {
+    > h2 {
+      margin-bottom: 30px;
+    }
+    > div {
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .homePage {
+    .wideAdContainer {
+      margin-top: 40px;
+    }
+  }
+}
+.splashScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loadingAnimation {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid #ddd;
+  border-top: 5px solid #333;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.splashScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loadingAnimation {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid #ddd;
+  border-top: 5px solid #333;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.waveText {
+  display: inline-block;
+
+  span {
+    display: inline-block;
+    font-size: 6rem;
+    animation: wave 2s ease-in-out infinite;
+    color: #fec61b;
+  }
+
+  & span:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  & span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  & span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  & span:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  & span:nth-child(5) {
+    animation-delay: 0s;
+  }
+
+  & span:nth-child(6) {
+    animation-delay: 0.2s;
+  }
+
+  & span:nth-child(7) {
+    animation-delay: 0.4s;
+  }
+
+  & span:nth-child(8) {
+    animation-delay: 0.6s;
+  }
+  & span:nth-child(9) {
+    animation-delay: 0.2s;
+  }
+
+  & span:nth-child(10) {
+    animation-delay: 0.4s;
+  }
+
+  & span:nth-child(11) {
+    animation-delay: 0.6s;
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.security{
+  position: absolute;
+  // z-index: 9999999;
+  transform: rotate(270deg);
+  margin-left: -30%;
+}
+
+
+.securitys{
+  position: absolute;
+  // z-index: 9999999;
+
+  margin-top: 60%;
+  transform: rotate(280deg);
+  margin-left: -30%;
+}
+
+
+
+.securityss{
+  position: absolute;
+  // z-index: 9999999;
+z-index: 0;
+  margin-top: -15%;
+  transform: rotate(70deg);
+  margin-left:65%;
+}
+
+@media (max-width: 768px) {
+  .security{
+    display: none;
+  }
+  
+  
+  .securitys{
+    display: none;
+  }
+  
+  
+  
+  .securityss{
+  display: none;
+  }
+}

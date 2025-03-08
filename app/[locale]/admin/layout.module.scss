@@ -1,0 +1,54 @@
+@import "/public/css/variables.module.scss";
+
+.adminLayout {
+  display: flex;
+  // min-height: 100vh;
+
+  > .rightCol {
+    width: 100%;
+    padding: 24px;
+    > h1 {
+      width: 100%;
+      display: block;
+      color: rgb(10, 99, 171);
+      font-size: 2.4rem;
+      font-weight: 600;
+      padding-bottom: 20px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid nth($color-light, 3);
+    }
+  }
+}
+.title{
+  font-size: 3rem;
+}
+
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.chartCard {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chartTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

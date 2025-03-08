@@ -1,0 +1,242 @@
+
+
+.main {
+  width: 100%;
+  height: 100vh;
+//   background-color: orangered;
+//  overflow-x: hidden;
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+  .one {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80vh;
+    background: white;
+  
+    position: relative;
+    .backgroundimages {
+      position: absolute;
+      width: 120%;
+      opacity: 0.7;
+      animation: moveUpDown 3s ease-in-out infinite;
+    }
+
+    .backgroundimagess {
+      position: absolute;
+      width: 90%;
+      z-index: 1;
+      margin-top: -12%;
+      margin-left: -45%;
+      // opacity: 0.7;
+      // animation: moveUpDown 3s ease-in-out infinite;
+    }
+    
+    
+    @keyframes moveUpDown {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px); /* You can adjust the movement distance */
+      }
+      100% {
+        transform: translateY(0);
+      }
+
+
+      
+    }
+
+    
+   
+
+  
+
+    h1 {
+      font-size: 20vw;
+      font-family: 'Product Sans B', sans-serif;
+      color: #000000;
+      z-index: 1;
+    }
+
+    .fanta {
+      position: absolute;
+      width: 22%;
+      z-index: 2;
+      transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+    }
+
+    .orangeCut {
+      position: absolute;
+      top: 10%;
+      left: 32%;
+      width: 15%;
+      z-index: 1;
+      transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+    }
+
+    .orange {
+      position: absolute;
+      width: 20%;
+      z-index: 3;
+      top: 55%;
+      right: 30%;
+      transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+    }
+
+    .leaf {
+      top: 10%;
+      left: 0%;
+      transform: rotate(60deg);
+      position: absolute;
+      width: 18%;
+      transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+      z-index: 2;
+    }
+
+    .leaf2 {
+      top: 70%;
+      left: 80%;
+      transform: rotate(-90deg);
+      position: absolute;
+      width: 12%;
+      transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+    }
+
+    .leaf3 {
+      position: absolute;
+      width: 20%;
+      top: 10%;
+      right: 0%;
+      z-index: 2;
+    }
+  }
+
+  .two {
+    display: flex;
+    width: 100%;
+    height: 80vh;
+    background: white;
+
+    .leftTwo{
+        width: 40%;
+        gap: 5vh
+    }
+    .rightTwo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2vh;
+      width: 60%;
+      height: 100%;
+    }
+
+    .leftTwo svg {
+      margin-top: 50vh;
+      width: 90%;
+      transform: rotateX(50deg);
+    }
+
+    .rightTwo h1 {
+      color: #000000;
+      font-size: 5vw;
+    }
+
+    .rightTwo p {
+      font-size: 1vw;
+      color: #000000;
+      width: 80%;
+    }
+  }
+}
+.waveText {
+  display: inline-block;
+
+  span {
+    display: inline-block;
+    font-size: 6rem;
+    animation: wave 2s ease-in-out infinite;
+    color: #fec61b;
+  }
+
+  & span:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  & span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  & span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  & span:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  & span:nth-child(5) {
+    animation-delay: 0s;
+  }
+
+  & span:nth-child(6) {
+    animation-delay: 0.2s;
+  }
+
+  & span:nth-child(7) {
+    animation-delay: 0.4s;
+  }
+
+  & span:nth-child(8) {
+    animation-delay: 0.6s;
+  }
+  & span:nth-child(9) {
+    animation-delay: 0.2s;
+  }
+
+  & span:nth-child(10) {
+    animation-delay: 0.4s;
+  }
+
+  & span:nth-child(11) {
+    animation-delay: 0.6s;
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+} 
+.hellokitty{
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+  
+    }
+
+    .iconssupport{
+      width: 40%;
+    
+      font-weight: 200;
+    }
+
+    @media (max-width: 480px) {
+      .backgroundimagess {
+        display: none;
+        // opacity: 0.7;
+        // animation: moveUpDown 3s ease-in-out infinite;
+      }
+
+    }
+
+    .niggawhat{
+      font-size: 1.6rem;
+      margin: 5px;
+    }

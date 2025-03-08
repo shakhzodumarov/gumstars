@@ -1,0 +1,14 @@
+.blogCardContainers{
+    margin-top: 150px;
+    
+}
+
+.blogCardContainer{
+    // margin-top: 150px;
+    display: flex;
+    gap: 24px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+    // background-image: url("/images/images/desings.png");
+}

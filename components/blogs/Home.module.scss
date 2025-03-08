@@ -1,0 +1,116 @@
+// components/service.module.scss
+.serviceContainer {
+    // background-color: #f4f4f4;
+    // background-image: url("/images/images/desings.png");
+    border-radius: 8px;
+  
+    text-align: center;
+    // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(50px);
+    animation: slideIn 0.5s ease-out forwards;
+    margin-top: 150px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    
+  
+
+  }
+  
+  .title {
+    font-size: 4rem;
+    color: #333;
+    margin-bottom: 15px;
+    opacity: 0;
+    font-weight: 800;
+    animation: fadeIn 1s ease-in-out 0.5s forwards;
+  }
+  
+  .description {
+    padding: 50px;
+    font-size: 2rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 42px;
+    opacity: 0;
+    font-weight: 400;
+    animation: fadeIn 1s ease-in-out 1s forwards;
+  }
+  
+  .learnMoreButton {
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #005bb5;
+    }
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateY(50px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+
+  @media (max-width: 640px) {
+    .description {
+        padding: 50px;
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out 1s forwards;
+      }
+  }
+
+  .hellomother{
+    padding: 20px;
+    width: 70%;
+    height: 90%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 3px solid #07a241;
+    z-index: 999;
+
+  }
+
+  // .sentence {
+  //   display: inline-block;
+  //   margin-right: 5px; // Optional: add some space between sentences
+  // }
+  
+  .split {
+    display: block;
+    height: 10px; // Optional: you can adjust the height of the space between sentence groups
+  }
+  .patrick{
+    position: absolute;
+    margin-top: -25%;
+    margin-left: -20%;
+    opacity: 0.3;
+  }
+  .patricks{
+    position: absolute;
+    margin-top: -25%;
+    margin-left: 60%;
+    opacity: 0.3;
+  }

@@ -1,0 +1,231 @@
+.homePageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+    position: relative;
+    margin-top: 170px;
+  }
+  
+  .splashScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #fff;
+    font-size: 24px;
+  }
+  
+  .contentWrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin-top: 60px; /* Adjust for splash screen visibility */
+  }
+  
+  .homePageContainer h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .cardsWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    padding: 20px;
+  }
+  
+  .navLinks {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navLinks a {
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border: 1px solid black;
+    padding: 8px 25px;
+    border-radius: 20px;
+  }
+  
+  .navLinks a:hover {
+    color: #ffe600;
+    background-color: #333;
+  }
+  
+  .cardWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .cardWrapper img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .cardWrapper h3 {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .cardWrapper p {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+  }
+  
+  .cardWrapper .btn {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 10px 50px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cardWrapper .btn:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .homePageContainer {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .splashScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.5rem;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .categoryFilters {
+    margin-bottom: 10px;
+   
+    >h1{
+      position: absolute;
+      text-align: center;
+      opacity: 0.1;
+      text-transform: uppercase;
+      font-size: 12rem;
+      margin-left: 12%;
+      
+    }
+
+  }
+  
+  .parentCategories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    z-index: 9;
+  
+  }
+  
+  .childCategories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    
+  }
+  
+  .categoryItem {
+    padding: 18px 66px;
+    background-color: #f5f5f5;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.6rem;
+    
+    &:hover {
+      background-color: #e0e0e0;
+    }
+    
+    &.selected {
+      background-color: rgba(7, 162, 65, 0.79);
+      color: white;
+    }
+  }
+  
+  .filterStatus {
+    font-size: 1.95rem;
+    color: #4b5563;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .cardsWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .error {
+    color: #ef4444;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .noProducts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 0;
+    color: #6b7280;
+  }
+
+  .disco{
+    position: absolute;
+    
+    margin-left: -20%;
+    opacity: 0.3;
+  }
+  .discos{
+    position: absolute;
+    margin-top: -50%;
+    margin-left: 60%;
+    opacity: 0.3;
+  }
+  .tyler{
+    background-color: #f9fff9;
+  }

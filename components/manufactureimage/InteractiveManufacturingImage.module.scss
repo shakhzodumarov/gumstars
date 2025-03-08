@@ -1,0 +1,89 @@
+.container {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .hotspot {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+    // border: 2px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+  }
+  
+  .hotspotPolygon {
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  .polygon {
+    fill: rgba(255, 255, 255, 0.2);
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 1;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      fill: rgba(255, 255, 255, 0.4);
+      stroke: rgba(255, 255, 255, 0.8);
+    }
+  }
+  
+  .hotspotIndicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .infoBox {
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    padding: 15px;
+    border-radius: 35px;
+    border: 3px solid #137835;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(254, 254, 254, 0.3);
+    transform: translateX(-50%);
+    pointer-events: none; // Prevent the info box from interfering with mouse events
+  }
+  
+  .infoArrow {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(0, 0, 0, 0.8);
+    transform: translateX(-50%);
+  }
+  
+  .infoTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .infoDescription {
+    font-size: 14px;
+    line-height: 1.4;
+  }

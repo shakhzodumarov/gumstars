@@ -1,0 +1,329 @@
+@import "/public/css/variables.module.scss";
+
+.productBoard {
+  max-width: 850px;
+  flex-wrap: wrap;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 15px;
+
+
+  > h1{
+    font-size: 4rem;
+  }
+  > span{
+    font-size: 1.6rem;
+  }
+  // flex-direction: column;
+  > section {
+    display: block;
+    width: 100%;
+  }
+  h3{
+    font-size: 14px;
+    font-weight: 300;
+  }
+  .stars {
+    display: flex;
+    align-items: center;
+    > svg {
+      margin-right: 2px;
+    }
+    > a {
+      margin-left: 12px;
+      font-size: 1.2rem;
+      color: nth($color-blue, 3);
+    }
+  }
+  .productcoardhello{
+    width: 40%;
+  }
+
+  .favorite {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: none;
+    padding: 4px;
+    background-color: white;
+    &:hover {
+      > svg {
+        fill: nth($color-light, 2);
+      }
+    }
+    &:active {
+      > svg {
+        fill: nth($color-light, 3);
+      }
+    }
+    > svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+      stroke: nth($color-light, 7);
+      transition: all 0.3s;
+    }
+  }
+  .colorOptions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .colorButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+  
+    &:hover {
+      transform: scale(1.1);
+      border-color: #000;
+    }
+  
+    &.selected {
+      border-color: #1f1f1f;
+      box-shadow: 0 0 10px rgba(30, 30, 30, 0.5);
+    }
+  }
+
+
+  > .specialFeatures {
+    display: flex;
+    gap: 10px;
+    font-size: 1.4rem;
+    color: nth($color-light, 6);
+    margin-bottom: 50px;
+  }
+  .price {
+    font-size: 3rem;
+    font-weight: 500;
+    color: nth($color-light, 9);
+    margin-bottom: 20px;
+  }
+  > hr {
+    width: 100%;
+    border-top: 1px solid nth($color-light, 3);
+    margin-bottom: 20px;
+  }
+  .dealPrice {
+    margin-bottom: 20px;
+    > span {
+      font-size: 1.4rem;
+      &:first-child {
+        color: white;
+        border-radius: 4px;
+        background-color: nth($color-red, 6);
+        padding: 3px 12px;
+      }
+      &:last-child {
+        margin-top: 10px;
+        display: block;
+        color: nth($color-light, 8);
+      }
+    }
+  }
+
+  .optionWrapper {
+    .optionName {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      span {
+        &:first-child {
+          color: nth($color-light, 7);
+        }
+        &:last-child {
+          margin-left: 12px;
+          font-weight: 500;
+          color: nth($color-light, 9);
+        }
+      }
+    }
+
+    .optionList {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .optionType_Text {
+      > button {
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid nth($color-light, 5);
+        font-weight: 500;
+        color: nth($color-light, 5);
+        font-size: 1.4rem;
+        background-color: white;
+        transition: all 0.3s;
+        &:hover {
+          border-color: nth($color-light, 7);
+          color: nth($color-light, 7);
+        }
+      }
+      > .active {
+        cursor: default;
+        font-weight: 500;
+        border-color: nth($color-light, 9);
+        color: nth($color-light, 9);
+        &:hover {
+          border-color: nth($color-light, 9);
+          color: nth($color-light, 9);
+        }
+      }
+    }
+
+    .optionType_Color {
+      > button {
+        width: 28px;
+        height: 28px;
+        position: relative;
+        background-color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 1px solid nth($color-light, 3);
+        opacity: 0.5;
+        transition: all 0.3s;
+        > span {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          bottom: 0;
+          margin: 3px;
+          border-radius: 50%;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
+      > .active {
+        cursor: default;
+        border-width: 2px;
+        opacity: 1;
+      }
+    }
+  }
+
+  .addToCartSection {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .productBoard {
+    display: flex;
+    flex-direction: column;
+    > h1 {
+      font-size: 2rem;
+      line-height: 3rem;
+    }
+    .price {
+      font-size: 2.6rem;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .productBoard {
+    > h1 {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+    }
+    .price {
+      font-size: 2.6rem;
+    }
+    .addToCartSection {
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+  }
+}
+
+
+.featureButton {
+  background: linear-gradient(145deg, #f6f6f6, #fcfcff); 
+  border: 2px solid #383838;
+  color: rgb(73, 73, 73);
+  font-size: 1.4rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px 25px;
+  border-radius: 15px;
+  margin: 8px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  min-width: 120px;
+  span {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+}
+
+.featureButton:hover {
+  background: linear-gradient(145deg, #494949, #2b2b2b); 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  color: #fcfcff; 
+}
+
+.featureButton.selected {
+  background: #5b6fdb; /* Different background color when selected */
+  color: white;
+  border-color: #272727; /* Darker border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
+}
+
+.colorButton {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.colorButton:hover {
+  border: 2px solid #333;
+}
+
+.colorButton.selected {
+  border-color: #fa0b0b; /* Highlight selected color with a border */
+  transform: scale(1.1); /* Slightly enlarge the selected color button */
+}
+.featureButton.selected {
+  background: #3c3c3c; /* Different background color when selected */
+  color: white;
+  border-color: #030303; /* Darker border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
+}
+
+.colorButton.selected {
+  border-color: #fa0b0b; /* Highlight selected color with a border */
+  transform: scale(1.1); /* Slightly enlarge the selected color button */
+}
+
+.textin {
+  display: block;
+  font-size: 3.4rem;
+  line-height: 3.6rem;
+  font-weight: 500;
+  margin: 30px 0 10px;
+  color: nth($color-light, 9);
+}
+
+
+

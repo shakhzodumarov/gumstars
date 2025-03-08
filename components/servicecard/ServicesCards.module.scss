@@ -1,0 +1,150 @@
+// /* ServicesCards.module.scss */
+
+// .servicesWrapper {
+//     display: grid;
+//     grid-template-columns: repeat(8, 1fr);
+//     gap: 1.5rem;
+//     justify-items: center;
+//     overflow-x: auto;
+//     flex-wrap: wrap;
+//   }
+  
+//   .serviceCard {
+//     position: relative;
+//     width: 100%;
+//     border: 1px solid #ccc;
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//     border-radius: 1rem;
+//     padding: 1.25rem;
+//     margin: 50px;
+  
+//     & h2 {
+//       font-size: 2.25rem; /* For text-lg */
+//       color: black;
+//       font-weight: bold;
+//       margin-bottom: 1rem;
+//     }
+  
+//     & hr {
+//       margin-bottom: 1.5rem;
+//     }
+  
+//     & .imageWrapper {
+//       position: relative;
+//       display: flex;
+//       justify-content: center;
+   
+  
+//       & .services-layer-one,
+//       & .services-layer-two {
+//         position: absolute;
+//         border-radius: 1.5rem;
+//         height: 10rem;
+//       }
+  
+//       & .services-layer-one {
+//         top: 7rem;
+//         background-color: rgba(255, 255, 255, 0.1);
+//       }
+  
+//       & .services-layer-two {
+//         top: 8rem;
+//         background-color: rgba(255, 255, 255, 0.2);
+//       }
+//     }
+  
+//     & .image {
+//       border-radius: 1rem;
+//       width: 70%;
+//       margin-top: 5rem;
+//       height: 70%;
+//       margin-left: 5rem;
+//     }
+//   }
+//   .serviceCard:hover{
+//     transform: scale(1.1);
+//   }
+  
+//   @media (min-width: 640px) {
+//     .serviceCard {
+//       grid-column: span 6;
+//     }
+//   }
+  
+//   @media (min-width: 768px) {
+//     .serviceCard {
+//       grid-column: span 6;
+//     }
+//   }
+  
+//   @media (min-width: 1024px) {
+//     .serviceCard {
+//       grid-column: span 4;
+//     }
+//   }
+//   .images{
+//     font-size: 2rem;
+//   }
+
+.servicesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.serviceCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  // background: #fff;
+  
+  &:nth-child(odd) {
+    flex-direction: row;
+  }
+
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 50%;
+  max-width: 500px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.content {
+  width: 50%;
+}
+
+.content h2 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 1.8rem;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .serviceCard {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .imageWrapper,
+  .content {
+    width: 100%;
+  }
+}

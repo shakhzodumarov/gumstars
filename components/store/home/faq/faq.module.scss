@@ -1,0 +1,140 @@
+// styles/FAQ.module.scss
+
+.faq {
+  font-family: 'Raleway', sans-serif;
+  color: #333;
+  background-color: #fcfcfc;
+  padding: 20px; /* Added padding for better spacing */
+}
+
+.faqHeader {
+  font-size: 42px;
+  border-bottom: 1px dotted #ccc;
+  padding: 24px;
+  text-align: center; /* Center the header text */
+}
+
+.faqContent {
+  margin: 0 auto;
+  max-width: 960px; /* Limit the width for large screens */
+}
+
+.faqQuestion {
+  padding: 20px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+.panelTitle {
+  font-size: 24px;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 10px 10px 0 48px;
+  display: block;
+  cursor: pointer;
+}
+
+.panelContent {
+  font-size: 20px;
+  padding: 0px 14px;
+  margin: 0 40px;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  position: relative;
+  transition: 0.4s ease;
+}
+
+.open {
+  height: auto;
+  opacity: 1;
+  padding: 14px;
+}
+
+.plus {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 4px;
+  font-size: 42px;
+  line-height: 100%;
+  transition: 0.2s ease;
+}
+
+.faqQuestion.open .plus {
+  transform: rotate(45deg);
+}
+
+/* Mobile Responsive Styles */
+
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+  .faqHeader {
+    font-size: 32px;
+    padding: 16px;
+  }
+
+  .panelTitle {
+    font-size: 18px;
+    padding: 8px 8px 0 40px; /* Adjust padding for better spacing */
+  }
+
+  .panelContent {
+    font-size: 16px;
+    padding: 10px 16px;
+    margin: 0 20px;
+  }
+
+  .plus {
+    font-size: 30px;
+    margin-left: 15px;
+  }
+}
+
+/* For screens smaller than 480px */
+@media (max-width: 480px) {
+  .faqHeader {
+    font-size: 28px;
+    padding: 12px;
+  }
+
+  .panelTitle {
+    font-size: 16px;
+    padding: 6px 6px 0 32px; /* Further adjust padding */
+  }
+
+  .panelContent {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0 12px;
+  }
+
+  .plus {
+    font-size: 28px;
+    margin-left: 10px;
+  }
+}
+
+/* For extra small screens or mobile landscape */
+@media (max-width: 360px) {
+  .faqHeader {
+    font-size: 24px;  /* Further reduce header size */
+    padding: 8px;
+  }
+
+  .panelTitle {
+    font-size: 14px;
+    padding: 6px 6px 0 24px; /* Adjust padding for very small screens */
+  }
+
+  .panelContent {
+    font-size: 12px;  /* Reduce font size further */
+    padding: 6px 10px;
+    margin: 0 8px;
+  }
+
+  .plus {
+    font-size: 24px;  /* Reduce plus sign size */
+    margin-left: 8px;
+  }
+}
+
