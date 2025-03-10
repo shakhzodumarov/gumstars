@@ -61,7 +61,7 @@ const ProductListItem = ({ data, requestReload }: IProps) => {
     setProductData({
       name: data.name,
       categoryID: data.category.id,
-      images: [], // These would need to be loaded from the server
+      images: "", // These would need to be loaded from the server
       specifications: [], // These would need to be loaded from the server
       isAvailable: true, // Default value, would need to be loaded from the server
       desc: ""

@@ -26,12 +26,16 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
   const [categoryList, setCategoryList] = useState<TDropDown[]>([categoryListFirstItem]);
   const [selectedCategoryListIndex, setSelectedCategoryListIndex] = useState(0);
   const [categorySpecs, setCategorySpecs] = useState<SpecGroup[]>([]);
+  
+  // Console log initial props to see what we're working with
+  useEffect(() => {
+    console.log("Form values on mount:", props);
+  }, []);
 
   // Fetch categories on mount
   useEffect(() => {
     const fetchCategories = async () => {
       const result = await getAllCategoriesJSON();
-      console.log(result); // Debugging: Log API response
       if (result.res) {
         setCategoryList(convertJSONtoDropdownList(result.res));
       }
@@ -99,6 +103,20 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
     }
   };
 
+  // Handle image change from ImageUploader - THIS IS THE CRITICAL PART
+  const handleImageChange = (updatedProps: { images: string | null }) => {
+    console.log("Image received from uploader:", updatedProps.images);
+    
+    // Update the form values with the new image string
+    const updatedFormValues = {
+      ...props,
+      images: updatedProps.images || "" // Convert null to empty string if needed
+    };
+    
+    console.log("Updating form with new values:", updatedFormValues);
+    onChange(updatedFormValues);
+  };
+
   return (
     <div className={styles.productForm}>
       <div className={styles.nameAndCat}>
@@ -150,9 +168,12 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
         <div>
           <span>Изображения:</span>
           <ImageUploader
-            images={props.images}
-            onChange={(updatedImages) => onChange({ ...props, images: updatedImages.images })}
+            images={props.images || null} // Pass the current image from form values
+            onChange={handleImageChange} // Handle image change
           />
+          <div style={{ marginTop: '8px', fontSize: '12px', color: '#666' }}>
+            Current image URL: {props.images || "(none)"}
+          </div>
         </div>
         <div>
           <span>Категория</span>
@@ -183,8 +204,12 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
                         type="text"
                         value={props.specifications[groupIndex]?.specValues[specIndex]}
                         onChange={(e) => {
-                          props.specifications[groupIndex].specValues[specIndex] = e.currentTarget.value;
-                          onChange({ ...props });
+                          const newSpecifications = [...props.specifications];
+                          newSpecifications[groupIndex].specValues[specIndex] = e.currentTarget.value;
+                          onChange({
+                            ...props,
+                            specifications: newSpecifications
+                          });
                         }}
                         placeholder="..."
                       />

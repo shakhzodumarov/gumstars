@@ -1,22 +1,36 @@
 import React from 'react';
 import styles from './style.module.scss';
+import { useTranslations } from 'next-intl';
+import { BiLogoFacebook, BiLogoInstagram } from 'react-icons/bi';
+import { Link } from '@/i18n/routing';
+import { BsInstagram } from 'react-icons/bs';
 
 const Contact: React.FC = () => {
+  const t = useTranslations('HomePage');
   return (
     <div className={styles.contactContainer}>
       <div className={styles.contactInfo}>
-        <h2>Ташкент</h2>
-        <p>Узбекистан, г.Ташкент, Чиланзарский р-он, ул.Диёдор, дом 71</p>
+        <h2>{t('niggaonefour')}</h2>
+        <p>{t('niggaoneseven')}</p>
         <p>+998 93 123-02-12</p>
         <br />
-        <h2>Долина</h2>
-        <p>Узбекистан, г.Ташкент, Чиланзарский р-он, ул.Диёдор, дом 71</p>
+        <h2>{t('niggaonefive')}</h2>
         <p>+998 97 444-40-73</p>
         <br />
         <h2>
-        Воха</h2>
-        <p>Узбекистан, г.Ташкент, Чиланзарский р-он, ул.Диёдор, дом 71</p>
+        {t('niggaonesix')}</h2>
         <p>+998 97 444-40-82</p>
+        <br />
+        <h2>
+        E-mail</h2>
+        <p>info@gumstar.com</p>
+        <br />
+        <h2>
+        {t('niggaonenine')}</h2>
+        <div className={styles.social}>
+              <Link href={"https://www.instagram.com/"}><BsInstagram width={50} strokeWidth={0} /></Link>
+              <Link href={"https://www.facebook.com/"}><BiLogoFacebook width={50} strokeWidth={0} /></Link>
+            </div>
         
       </div>
       <div className={styles.mapContainer}>

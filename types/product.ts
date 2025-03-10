@@ -54,7 +54,7 @@ export type TAddProductFormValues = {
   name: string;
   isAvailable: boolean;
   desc?: string;
-  images: string[];
+  images: string;
   categoryID: string;
   specifications: ProductSpec[];
 };
@@ -70,7 +70,7 @@ export type TProductListItem = {
 export type TCartListItemDB = {
   id: string;
   name: string;
-  images: string[];
+  images: string;
 };
 
 
@@ -106,7 +106,7 @@ export type TProductRecentItem = {
   id: string;
   name: string;
   isAvailable: boolean;
-  images: string[];
+  images: string;
   // url: string;
   category: {
     id: string;
@@ -118,7 +118,7 @@ export type TProductRelatedItem = {
   id: string;
   name: string;
   isAvailable: boolean;
-  images: string[];
+  images: string;
   categoryID: string;
   // url: string;
   category: {

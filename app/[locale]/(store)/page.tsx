@@ -21,7 +21,7 @@ export default function Home() {
   
   // Section IDs for navigation dots
   const sectionIds = ['hero', 'statistics', 'trending', 'content', 'contact-section', 'contact-form'];
-  const sectionNames = ['Asosiy', 'Biz Haqimizda', 'Katalog', 'Hamkorlar', 'Muloqot', 'Kontakt'];
+  const sectionNames = [t('viewall'), t('wideadtitleone'), t('wideadtitletwo'), t('latestnews'), t('blogtitlezero'), t('blogtitlezero')];
   
   const handleFormSubmit = (formData: {
     name: string;
@@ -40,26 +40,26 @@ export default function Home() {
         <div>
           <section id="hero">
             <HeroSection
-              title="Transform Your Digital Experience"
-              description="We create innovative solutions that help businesses thrive in the digital landscape. Our cutting-edge technology and creative approach deliver exceptional results for our clients."
+              title={t('title')}
+              description={t('about')}
               videoSrc="/images/images/gumstarr.mp4"
             
               primaryButton={{
-                label: "Get Started",
-                href: "/contact"
+                label: t('loading'),
+                href: "/company"
               }}
               secondaryButton={{
-                label: "Learn More",
-                href: "/about"
+                label: t('latesttovars'),
+                href: "/all"
               }}
             />
           </section>
           
           <section id="statistics">
             <StatisticsCard
-              title="Product Performance"
-              description="Our flagship product has exceeded expectations across all key performance indicators. The latest quarterly report shows significant growth in user adoption and revenue generation while maintaining high satisfaction rates."
-              imageUrl="/images/images/busines.jpg"
+              title={t('wideadtitleone')}
+              description={t('blogtitletwo')}
+              imageUrl="/images/images/brum.png"
               imageAlt="Product performance"
       
             />
@@ -75,13 +75,10 @@ export default function Home() {
           
           <section id="contact-section">
             <ContactSection
-              title="Get in Touch"
+              title={t('callaccessoriestwo')}
               subtitle="We're here to help you succeed"
-              description="Have questions about our services? Need to schedule a consultation? 
-                          Our team is ready to assist you with any inquiries you may have. 
-                          Fill out the form and we'll get back to you within 24 hours. 
-                          Your business needs are our top priority."
-              ctaText="Send Message"
+              description={t('callaccessoriesthree')}
+              ctaText={t('niggaonetwo')}
               onSubmit={handleFormSubmit}
             />
           </section>

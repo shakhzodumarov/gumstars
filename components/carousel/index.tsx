@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react';
 import styles from './Carousel.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 
 const AutoImageSlider = () => {
+   const t = useTranslations('HomePage');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   
@@ -14,25 +16,25 @@ const AutoImageSlider = () => {
       id: 1,
       title: "PLIX",
       description: "House special with secret sauce",
-      price: "Biz bilan mazali saqichlar kolleksiyasini kashf eting",
-      image: "/images/images/plix.png",
-      color: "#3D8D7A"
+      price: t('blogthree'),
+      image: "/images/images/slide.png",
+      color: "#07a241"
     },
     {
       id: 2,
       title: "PULPY",
       description: "Fresh from our wood-fired oven",
-      price: "Biz bilan mazali saqichlar kolleksiyasini kashf eting",
+      price: t('blogdescone'),
       image: "/images/images/pulpy.jpg",
-      color: "#16C47F"
+      color: "#07a241"
     },
     {
       id: 3,
       title: "ALIF",
       description: "Handmade daily with local ingredients",
-      price: "Biz bilan mazali saqichlar kolleksiyasini kashf eting",
-      image: "/images/images/88.png",
-      color: "#15B392"
+      price: t('blogdesctwo'),
+      image: "/images/images/slip.png",
+      color: "#07a241"
     }
   ];
 
@@ -107,7 +109,7 @@ const AutoImageSlider = () => {
                     boxShadow: `0 4px 15px ${slides[currentIndex].color}80`
                   }}
                 >
-                  batafsil
+                  {t('blogdesczero')}
                 </button></Link>
               </div>
               <div className={styles.imageContainer}>

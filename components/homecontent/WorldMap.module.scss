@@ -8,8 +8,7 @@
     overflow-x: scroll; // Ensure horizontal scroll on small screens
 
     position: relative;
-    flex-shrink: 0; // Prevent shrinking
-    flex-grow: 0; // Prevent growing
+
   }
 
   &__map {
@@ -238,4 +237,21 @@
   background-color: #07a241;
   border-radius: 40px;
   color: white;
+}
+
+
+@media (max-width: 768px) {
+  .something {
+    &__container {
+      width: 1540px;
+      height: 100vh;
+      background-image: url("/images/images/horror.png");
+      object-fit: cover;
+      display: flex; 
+      overflow-x: scroll; 
+  
+      position: relative;
+  
+    }
+  }
 }

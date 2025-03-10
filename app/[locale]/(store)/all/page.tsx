@@ -188,7 +188,7 @@ export default function All() {
     if (selectedParent && selectedChild) {
       return `${parentName} › ${childCategory?.name}`;
     } else if (selectedParent) {
-      return `${parentName} (${t('allSubcategories')})`;
+      return `${parentName}`;
     } else {
       return t('allProducts');
     }
@@ -196,12 +196,12 @@ export default function All() {
 
   return (
     <div className={styles.tyler}>
-      <CenterContent />
+      {/* <CenterContent /> */}
       <Image
       src={"/images/images/image.png"}
       alt="img"
-      width={800}
-      height={800}
+      width={600}
+      height={600}
       className={styles.disco}
       />
       <div className={styles.homePageContainer}>
@@ -259,7 +259,7 @@ export default function All() {
                   filteredProducts.map((product, index) => (
                     <RecentCard
   key={product.id || index}
-  //@ts-ignore
+  
   imgUrl={product.images}
   name={product.name}
   isAvailable={product.isAvailable}
@@ -277,8 +277,8 @@ export default function All() {
       <Image
       src={"/images/images/image.png"}
       alt="img"
-      width={800}
-      height={800}
+      width={600}
+      height={600}
       className={styles.discos}
       />
     </div>

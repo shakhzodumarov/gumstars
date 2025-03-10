@@ -21,7 +21,7 @@ const StoreLayout = ({ children }: { children: React.ReactNode }) => {
         <div className={styles.loadingScreen}>
           <div className={styles.radiatingWaves}></div>
           <div className={styles.logoContainer}>
-            <img src="/images/images/Gumstars.png" alt="Logo" className={styles.spinningLogo} />
+            <img src="/images/images/stars.png" alt="Logo" className={styles.spinningLogo} />
           </div>
         </div>
       ) : (

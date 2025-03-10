@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './givememoney.module.scss';
+import { useTranslations } from 'next-intl';
 
 const MultiImageSliderImages = () => {
+  const t = useTranslations('HomePage');
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const sliderRef = useRef(null);
@@ -61,7 +63,7 @@ const MultiImageSliderImages = () => {
 
   return (
     <div className={styles.hovertext}>
-      <h1>Fabrika Haqida</h1>
+      <h1>{t('wideadtitleone')}</h1>
     <div className={styles.multiSliderContainer}>
       <div className={styles.sliderWrapper}>
         <div 

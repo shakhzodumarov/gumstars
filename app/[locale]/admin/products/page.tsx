@@ -13,7 +13,7 @@ const initialForm: TAddProductFormValues = {
   name: "",
   isAvailable: false,
   desc: "",
-  images: [],
+  images: "",
   categoryID: "",
   specifications: [],
 };

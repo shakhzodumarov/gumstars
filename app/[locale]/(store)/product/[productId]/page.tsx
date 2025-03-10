@@ -24,6 +24,7 @@ const ProductPage = () => {
     const getProductFromDB = async () => {
       const response = await getOneProduct(productId.toString());
       if (response.error) router.push("/");
+      //@ts-ignore
       setProductInfo(response.res);
     };
     getProductFromDB();
@@ -63,7 +64,7 @@ const ProductPage = () => {
 
           {/* Gallery in the center */}
           <div className={styles.centerSection}>
-            <Gallery images={productInfo?.images} />
+            {/* <Gallery images={productInfo?.images} /> */}
           </div>
 
           {/* Specifications on the right */}

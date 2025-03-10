@@ -6,7 +6,7 @@ import Image from 'next/image';
 const ServiceComponent: React.FC = () => {
   const t = useTranslations('HomePage');
 
-  // Function to add line breaks after each sentence using a span
+  // Function to add a double line break after the first sentence
   const formatText = (text: string) => {
     const sentences = text.split('.'); // Split text by periods
     const formattedText = [];
@@ -18,48 +18,49 @@ const ServiceComponent: React.FC = () => {
         <span key={i} className={styles.sentence}>{sentences[i].trim()}</span>
       );
 
-      // After every sentence, add a "split" class for styling
-      if (i !== sentences.length - 1) {
+      // After the first sentence, add a double line break
+      if (i === 0) {
         //@ts-ignore
-        formattedText.push(<span key={`split-${i}`} className={styles.split}></span>);
+        formattedText.push(<br key={`br-${i}`} />);
+        //@ts-ignore
+        formattedText.push(<br key={`br2-${i}`} />);
       }
     }
 
     return formattedText;
   };
 
-  const translatedText = t('niggaoneeight');
+  const translatedText = t('niggaonetenq');
 
   // Fallback for invalid content
   const safeText = typeof translatedText === 'string' ? translatedText : 'Translation error: invalid content';
 
-  return (<div>
-    <Image
-    src={"/images/images/image.png"}
-    alt='img'
-    width={800}
-    height={800}
-    className={styles.patrick}
-    />
-    <div className={styles.serviceContainer}>
-      <div className={styles.hellomother}>
-        <h2 className={styles.title}>{t('niggaoneseven')}</h2>
-        <p className={styles.description}>
-          {formatText(safeText)}
-        </p>
+  return (
+    <div>
+      <Image
+        src={"/images/images/image.png"}
+        alt='img'
+        width={600}
+        height={600}
+        className={styles.patrick}
+      />
+      <div className={styles.serviceContainer}>
+        <div className={styles.hellomother}>
+          <h2 className={styles.title}>{t('niggaoneten')}</h2>
+          <p className={styles.description}>
+            {formatText(safeText)}
+          </p>
+        </div>
       </div>
-    </div>
-    <Image
-    src={"/images/images/image.png"}
-    alt='img'
-    width={800}
-    height={800}
-    className={styles.patricks}
-    />
+      <Image
+        src={"/images/images/image.png"}
+        alt='img'
+        width={600}
+        height={600}
+        className={styles.patricks}
+      />
     </div>
   );
 };
 
 export default ServiceComponent;
-
-

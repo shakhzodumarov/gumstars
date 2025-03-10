@@ -15,7 +15,7 @@ import { ProductSpec } from "@prisma/client";
 const ValidateAddProduct = z.object({
   name: z.string().min(3),
   desc: z.string().optional(),
-  images: z.array(z.string()),
+  images: z.string(),
   categoryID: z.string().min(6),
   specifications: z.array(
     z.object({
@@ -26,11 +26,16 @@ const ValidateAddProduct = z.object({
 });
 
 export const addProduct = async (data: TAddProductFormValues) => {
+  console.log("Data received in addProduct:", data);
+  
   if (!ValidateAddProduct.safeParse(data).success)
-    return { error: " Проверка неверных данных еще раз!" };
+    return { error: "Проверка неверных данных еще раз!" };
 
   try {
-    const result = db.category.update({
+    // Make sure images is a string
+    const imageString = data.images || "";
+    
+    const result = await db.category.update({
       where: {
         id: data.categoryID,
       },
@@ -40,15 +45,17 @@ export const addProduct = async (data: TAddProductFormValues) => {
             name: data.name,
             desc: data.desc || null,
             isAvailable: data.isAvailable,
-            images: [...data.images],
+            images: imageString, // Use the validated image string
             specs: data.specifications,
           },
         },
       },
     });
+    
     if (!result) return { error: "Не удается вставить данные" };
     return { res: result };
   } catch (error) {
+    console.error("Error in addProduct:", error);
     return { error: JSON.stringify(error) };
   }
 };
@@ -343,7 +350,7 @@ export const updateProduct = async (productID: string, data: TAddProductFormValu
           name: data.name,
           desc: data.desc || null,
           isAvailable: data.isAvailable,
-          images: [...data.images],
+          images: data.images,
           specs: data.specifications,
           category: {
             connect: { id: data.categoryID }
@@ -361,7 +368,7 @@ export const updateProduct = async (productID: string, data: TAddProductFormValu
           name: data.name,
           desc: data.desc || null,
           isAvailable: data.isAvailable,
-          images: [...data.images],
+          images: data.images,
           specs: data.specifications,
         }
       });

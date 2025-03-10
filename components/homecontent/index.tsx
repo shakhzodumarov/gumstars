@@ -2,135 +2,94 @@
 import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, Marker, Line } from "react-simple-maps";
 import styles from './WorldMap.module.scss';
+import { useTranslations } from 'next-intl';
+import { Link } from "@/i18n/routing";
 
 const geoUrl = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
 
-// Added country information with custom polygon shapes
-const countryInfo = {
-  "Uzbekistan": {
-    description: "Uzbekistan is known for its mosques, mausoleums and other sites linked to the Silk Road.",
+// Updated country information with images instead of shapes
+
+
+const WorldMap = () => {
+    const t = useTranslations('HomePage');
+  const [activeCountry, setActiveCountry] = useState(null);
+  const [hoveredCountry, setHoveredCountry] = useState(null);
+  const [animationIndex, setAnimationIndex] = useState(0);
+
+  const countryInfo = {
+    [t('collectionwatch')]: {
+    description: t('shitbag'),
     image: "/images/images/uzb.jpg",
-    shape: {
-      sides: 8, // Octagon
-      color: "#2dde82", // Green
-      size: 40 // Half the box size (radius)
-    }
+    flagImage: "/images/images/location.png", // Add country flag or representative image
+    size: 40 // Size for the image display
   },
-  "France": {
-    description: "France is known for its cuisine, culture, and historic landmarks like the Eiffel Tower.",
+  [t('wideadtitledescone')]: {
+    description: t('shitbag'),
     image: "/images/images/paris.jpg",
-    shape: {
-      sides: 4, // Hexagon
-      color: "#2dde82", // Blue
-      size: 40
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   },
-  "Turkey": {
-    description: "Turkey is a transcontinental country spanning both Europe and Asia.",
+  [t('collectionphones')]: {
+    description: t('shitbag'),
     image: "/images/images/turkey.jpg",
-    shape: {
-      sides: 14, // 14-sided polygon
-      color: "#2dde82", // Yellow
-      size: 50
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   },
-  "China": {
-    description: "China is the world's most populous country with a history spanning thousands of years.",
+  [t('callaccessories')]: {
+    description: t('shitbag'),
     image: "/images/images/china.jpg",
-    shape: {
-      sides: 5, // 20-sided polygon
-      color: "#2dde82", // Red
-      size: 120
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   },
-  "India": {
-    description: "India is known for its diverse culture, cuisine, and architectural wonders like the Taj Mahal.",
+  [t('collectionaccessories')]: {
+    description: t('shitbag'),
     image: "/images/images/india.jpg",
-    shape: {
-      sides: 10, // Decagon
-      color: "#2dde82", // Orange
-      size: 50
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   },
-  "Malaysia": {
-    description: "Malaysia is known for its beaches, rainforests, and mix of cultural influences.",
+  [t('callaccessoriesone')]: {
+    description: t('shitbag'),
     image: "/images/images/malasiya.jpg",
-    shape: {
-      sides: 5, // Pentagon
-      color: "#2dde82", // Purple
-      size: 50
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   },
-  "Belgium": {
-    description: "Belgium is known for its medieval towns, Renaissance architecture, and as headquarters of the EU.",
+  [t('servislar')]: {
+    description: t('shitbag'),
     image: "/images/images/belgium.jpg",
-    shape: {
-      sides: 12, // Dodecagon
-      color: "#2dde82", // Dark blue
-      size: 50
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   },
-  "Germany": {
-    description: "Germany is known for its rich history, technological innovations, and cultural contributions.",
+  [t('wideadtitledesc')]: {
+    description: t('shitbag'),
     image: "/images/images/berlin.jpg",
-    shape: {
-      sides: 5, // Square
-      color: "#2dde82", // Teal
-      size: 40
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   },
-  "Switzerland": {
-    description: "Switzerland is known for its mountains, lakes, chocolate, and banking system.",
+  [t('collectionipad')]: {
+    description: t('shitbag'),
     image: "/images/images/switzerland.jpg",
-    shape: {
-      sides: 6, // Triangle
-      color: "#2dde82", // Dark red
-      size: 20
-    }
+    flagImage: "/images/images/location.png",
+    size: 70
   }
 };
 
 const markers = [
-  { name: "Uzbekistan", coordinates: [-50.3451, 5.3775] },
-  { name: "France", coordinates: [-179.2137, 56.2276] },
-  { name: "Turkey", coordinates: [-95.2433, 5.9637] },
-  { name: "China", coordinates: [34.1954, -5.8617] },
-  { name: "India", coordinates: [-28.9629, -40.5937] },
-  { name: "Malaysia", coordinates: [51.9758, -74.2105] },
-  { name: "Belgium", coordinates: [-179.9699, 60.5039] },
-  { name: "Germany", coordinates: [-160.4515, 60.1657] },
-  { name: "Switzerland", coordinates: [-144.2275, 47.8182] }
+  { name: t('collectionwatch'), coordinates: [-50.3451, 5.3775] },
+  { name: t('wideadtitledescone'), coordinates: [-179.2137, 56.2276] },
+  { name: t('collectionphones'), coordinates: [-95.2433, 5.9637] },
+  { name: t('callaccessories'), coordinates: [34.1954, -5.8617] },
+  { name: t('collectionaccessories'), coordinates: [-28.9629, -40.5937] },
+  { name: t('callaccessoriesone'), coordinates: [51.9758, -74.2105] },
+  { name: t('servislar'), coordinates: [-179.9699, 60.5039] },
+  { name: t('wideadtitledesc'), coordinates: [-160.4515, 60.1657] },
+  { name: t('collectionipad'), coordinates: [-144.2275, 47.8182] }
 ];
-
-// Function to create polygon points
-const createPolygonPoints = (sides, size) => {
-  const points = [];
-  const angleStep = (Math.PI * 2) / sides;
-  
-  for (let i = 0; i < sides; i++) {
-    const angle = i * angleStep;
-    const x = size * Math.cos(angle);
-    const y = size * Math.sin(angle);
-    //@ts-ignore
-    points.push(`${x},${y}`);
-  }
-  
-  return points.join(' ');
-};
-
-const WorldMap = () => {
-  const [activeCountry, setActiveCountry] = useState(null);
-  const [hoveredCountry, setHoveredCountry] = useState(null);
-  const [animationIndex, setAnimationIndex] = useState(0);
-  const [editMode, setEditMode] = useState(false);
-  const [editedShapes, setEditedShapes] = useState({});
-  
   const uzbekistanCoordinates = markers.find(
-    (marker) => marker.name === "Uzbekistan"
+    (marker) => marker.name === t('collectionwatch')
   )?.coordinates;
   
   // Countries to animate through (excluding Uzbekistan)
-  const countriesToAnimate = markers.filter(marker => marker.name !== "Uzbekistan");
+  const countriesToAnimate = markers.filter(marker => marker.name !== t('collectionwatch'));
 
   // Animation effect
   useEffect(() => {
@@ -143,30 +102,7 @@ const WorldMap = () => {
     }, 3000); // Change country every 3 seconds
     
     return () => clearInterval(interval);
-
   }, [animationIndex]);
-
-  // Handle shape editing
-  const handleShapeChange = (country, property, value) => {
-    setEditedShapes(prev => ({
-      ...prev,
-      [country]: {
-        ...(prev[country] || {}),
-        [property]: value
-      }
-    }));
-  };
-
-  // Get shape properties with edits applied
-  const getShapeProps = (country) => {
-    const defaultProps = countryInfo[country]?.shape || { sides: 4, color: "#000000", size: 50 };
-    const editedProps = editedShapes[country] || {};
-    
-    return {
-      ...defaultProps,
-      ...editedProps
-    };
-  };
 
   return (
     <div className={styles.something__container}>
@@ -192,61 +128,73 @@ const WorldMap = () => {
           {markers.map(({ name, coordinates }) => {
             const isActive = name === activeCountry;
             const isHovered = name === hoveredCountry;
-            const shouldShowShape = isActive || isHovered;
-            const shapeProps = getShapeProps(name);
+            const shouldShowImage = isActive || isHovered;
+            const countrySize = countryInfo[name]?.size || 40;
             
             return (
               <Marker
                 key={name}
                 coordinates={coordinates}
                 //@ts-ignore
-                onClick={() => setActiveCountry(name !== "Uzbekistan" ? name : null)}
+                onClick={() => setActiveCountry(name !== t('collectionwatch') ? name : null)}
                 //@ts-ignore
                 onMouseEnter={() => setHoveredCountry(name)}
                 onMouseLeave={() => setHoveredCountry(null)}
               >
                 <g>
-                  {/* Custom polygon shape - only visible when active or hovered */}
-                  {shouldShowShape && (
-                    <g transform={`translate(0, 0)`}>
-                      <polygon 
-                        points={createPolygonPoints(shapeProps.sides, shapeProps.size)}
-                        fill={shapeProps.color}
-                        stroke="#000"
-                        strokeWidth="1"
-                        opacity="0.8"
-                        className={styles.something__customShape}
-                      />
+                  {/* Country image - only visible when active or hovered */}
+                  {/* @ts-ignore */}
+                  {shouldShowImage && countryInfo[name]?.flagImage && (
+                    <g transform={`translate(-${countrySize/2}, -${countrySize/2})`}>
+                      <svg width={countrySize} height={countrySize}>
+                        <image
+                        //@ts-ignore
+                          href={countryInfo[name].flagImage}
+                          width={countrySize}
+                          height={countrySize}
+                          clipPath={`url(#imageClip-${name})`}
+                        />
+                        {/* Define a clip path for the image */}
+                        <defs>
+                          <clipPath id={`imageClip-${name}`}>
+                            <circle cx={countrySize/2} cy={countrySize/2} r={countrySize/2} />
+                          </clipPath>
+                        </defs>
+                      </svg>
                     </g>
                   )}
                   
-                  {/* Circle background */}
-                  <circle
-                    r={name === activeCountry || name === "Uzbekistan" ? 15 : 12}
-                    fill={name === activeCountry ? "#07a241" : name === "Uzbekistan" ? "#ffffff" : "#07a241"}
-                    className={styles.something__marker}
-                  />
-                  
-                  {/* Add image with SVG image element */}
-                  <svg x="-10" y="-10" width="20" height="20">
-                    <image
-                      href={"/images/images/gumstars.png"}
-                      width="20"
-                      height="20"
-                      clipPath={`url(#circleClip-${name})`}
+                  {/* Circle background when no image is shown */}
+                  {!shouldShowImage && (
+                    <circle
+                      r={name === t('collectionwatch') ? 15 : 12}
+                      fill={name === t('collectionwatch') ? "#ffffff" : "#07a241"}
+                      className={styles.something__marker}
                     />
-                    {/* Define a clip path to make the image circular */}
-                    <defs>
-                      <clipPath id={`circleClip-${name}`}>
-                        <circle cx="10" cy="10" r="10" />
-                      </clipPath>
-                    </defs>
-                  </svg>
+                  )}
+                  
+                  {/* Star icon when no image is shown */}
+                  {!shouldShowImage && (
+                    <svg x="-10" y="-10" width="20" height="20">
+                      <image
+                        href={"/images/images/stars.png"}
+                        width="20"
+                        height="20"
+                        clipPath={`url(#circleClip-${name})`}
+                      />
+                      {/* Define a clip path to make the image circular */}
+                      <defs>
+                        <clipPath id={`circleClip-${name}`}>
+                          <circle cx="10" cy="10" r="10" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  )}
                   
                   {/* Country name */}
                   <text
                     textAnchor="middle"
-                    y={-18}
+                    y={shouldShowImage ? -countrySize/2 - 10 : -18}
                     className={name === activeCountry ? `${styles.something__marker} active` : styles.something__marker}
                   >
                     {name}
@@ -287,9 +235,12 @@ const WorldMap = () => {
                 />
               </div>
             )}
-      {/* @ts-ignore */}
+            {/* @ts-ignore */}
             <p>{countryInfo[activeCountry].description}</p>
-            <button className={styles.thebutton}>batafsil</button>
+            <Link
+            href={"/company"}
+            >
+            <button className={styles.thebutton}>{t('loading')}</button></Link>
           </div>
         )}
         {!activeCountry && (

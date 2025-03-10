@@ -3,6 +3,7 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'; // Import the CSS for styling
 import styles from './ContactSection.module.scss';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface ContactFormData {
   name: string;
@@ -79,14 +80,15 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       // setFormData({ name: '', phoneNumber: '', reason: '' });
     }
   };
+  const t = useTranslations('HomePage');
 
   return (
     <div className={styles.contactSection}>
       <Image
       src={"/images/images/image.png"}
       alt='img'
-      width={800}
-      height={800}
+      width={600}
+      height={600}
       className={styles.imagesback}
       />
       <Image
@@ -105,7 +107,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       <div className={styles.formColumn}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <label htmlFor="name" className={styles.label}>Full Name</label>
+            <label htmlFor="name" className={styles.label}>{t('callaccessoriesfour')}</label>
             <input
               type="text"
               id="name"
@@ -113,13 +115,13 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               value={formData.name}
               onChange={handleChange}
               className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
-              placeholder="Enter your full name"
+              placeholder="..."
             />
             {errors.name && <span className={styles.errorMessage}>{errors.name}</span>}
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="phoneNumber" className={styles.label}>Phone Number</label>
+            <label htmlFor="phoneNumber" className={styles.label}>{t('callaccessoriesfive')}</label>
             <PhoneInput
               international
               defaultCountry="UZ"
@@ -133,14 +135,14 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="reason" className={styles.label}>Reason for Contact</label>
+            <label htmlFor="reason" className={styles.label}>{t('niggaone')}</label>
             <textarea
               id="reason"
               name="reason"
               value={formData.reason}
               onChange={handleChange}
               className={`${styles.textarea} ${errors.reason ? styles.inputError : ''} ${styles.PhoneInput}`}
-              placeholder="Tell us why you're reaching out"
+              placeholder="..."
               rows={4}
             />
             {errors.reason && <span className={styles.errorMessage}>{errors.reason}</span>}
@@ -154,8 +156,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       <Image
       src={"/images/images/image.png"}
       alt='img'
-      width={800}
-      height={800}
+      width={500}
+      height={500}
       className={styles.imagesbacks}
       />
     </div>

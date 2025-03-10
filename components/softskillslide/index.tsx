@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import styles from "./SoftSkillsSlide.module.scss"
+import styles from "./SoftSkillsSlide.module.scss";
+import { useTranslations } from 'next-intl';
 
 const ConnectedDotsAnimation = () => {
+  const t = useTranslations('HomePage');
   // State to store dot positions
   const [dots, setDots] = useState([]);
   const [pathProgress, setPathProgress] = useState(0);
@@ -16,11 +18,11 @@ const ConnectedDotsAnimation = () => {
     // Function to generate fixed, non-crossing dots
     const generateFixedDots = () => {
       const newDots = [
-        { id: 0, x: 100, y: 100, label: "11", labels: "ishlab chiqarish liniyalari" },
-        { id: 1, x: 1050, y: 250, label: "15", labels: "ishlab chiqarish liniyalari" },
-        { id: 2, x: 500, y: 100, label: "60", labels: "ishlab chiqarish liniyalari" },
-        { id: 3, x: 750, y: 350, label: "90", labels: "ishlab chiqarish liniyalari" },
-        { id: 4, x: 250, y: 320, label: "150.000", labels: "ishlab chiqarish liniyalari" }
+        { id: 0, x: 100, y: 100, label: t('niggaonetenr'), labels: t('niggaonetent') },
+        { id: 1, x: 1050, y: 250, label: t('niggaoneteny'), labels: t('niggaonetenu') },
+        { id: 2, x: 700, y: 100, label: t('niggaoneteni'), labels: t('niggaoneteno') },
+        { id: 3, x: 750, y: 350, label: t('niggaonetenp'), labels: t('niggasinparis') },
+        { id: 4, x: 250, y: 320, label: t('niggasinparisone'), labels: t('niggasinparistwo') }
       ];
       
       return newDots;
@@ -60,7 +62,7 @@ const ConnectedDotsAnimation = () => {
     if (dots.length === 0 || animationComplete.current) return;
     
     let startTime;
-    const duration = 5000; // 5 seconds for complete animation
+    const duration = 8000; // 5 seconds for complete animation
     
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
@@ -265,28 +267,30 @@ const ConnectedDotsAnimation = () => {
 
   return (
     <div className={styles.guestbed} ref={containerRef}>
-      <h1>Ishlab chiqarish haqida</h1>
+      <h1>{t('niggaonetene')}</h1>
       <div className={styles.homeissafe}>
         <svg 
           width={canvasSize.width} 
           height={canvasSize.height} 
-          className="bg-white rounded shadow-inner"
+        
+          
         >
           {/* Animated connecting line */}
           <path
             d={getAnimatedPath()}
             fill="none"
             stroke="#808080"
-            strokeWidth="2"
+            strokeWidth="4"
             strokeLinecap="round"
           />
           
           {/* Dots */}
           {dots.map((dot, index) => (
              //@ts-ignore
-            <g key={dot.id}>
+            <g key={dot.id} >
+              
               {/* Dot */}
-              <circle
+              <circle 
                //@ts-ignore
                 cx={dot.x}
                  //@ts-ignore
@@ -297,15 +301,18 @@ const ConnectedDotsAnimation = () => {
                 strokeWidth="2"
               />
               <br />
+          
               <text
                //@ts-ignore
                 x={dot.x}
                  //@ts-ignore
-                y={dot.y + 65}
+                y={dot.y + 75}
                 textAnchor="middle"
-                fontSize="42"
+                fontSize="22"
                 fontWeight="700"
                 fill="#07a241"
+                
+               
               >
                 {/* @ts-ignore */}
                 {dot.label}
@@ -316,11 +323,15 @@ const ConnectedDotsAnimation = () => {
                  //@ts-ignore
                 y={dot.y + 105}
                 textAnchor="middle"
-                fontSize="14"
+                fontSize="10"
                 fill="#6b7280"
+   
+  
               >
+          
                 {/* @ts-ignore */}
                 {dot.labels}
+
               </text>
             </g>
           ))}

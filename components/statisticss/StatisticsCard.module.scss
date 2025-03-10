@@ -30,7 +30,8 @@
   .contentSection {
     display: flex;
     flex-direction: row;
-    min-height: 440px;
+    min-height: 340px;
+    margin-top: 2%;
     
     @media (max-width: 768px) {
       flex-direction: column;
@@ -100,17 +101,28 @@
 
   .tamombuttom{
     padding: 20px 85px;
-    background-color: rgb(100, 183, 100);
+    background-color: #07a241;
     border-radius: 30px;
+    color: white;
     transition: 0.5s;
-    border: 2px solid rgb(100, 183, 100);
+    border: 2px solid #07a241;
 
   }
 
   .tamombuttom:hover{
     padding: 20px 85px;
-    background-color: white;
+    background-color: transparent;
     border-radius: 30px;
-    border: 2px solid rgb(100, 183, 100);
+    color: black;
+    border: 2px solid #07a241;
 
+  }
+
+
+  @media (max-width: 768px) {
+    .title {
+      font-size: 44px;
+      text-align: center;
+      margin: 50px;
+    }
   }

@@ -6,12 +6,12 @@ import { Link, usePathname } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import styles from "./navbar.module.scss";
-import { BiLogoFacebook, BiPhoneCall } from "react-icons/bi";
+import { BiLogoFacebook } from "react-icons/bi";
 import { BsInstagram } from "react-icons/bs";
 import { useMediaQuery } from 'react-responsive';
 
 const StoreNavBar = () => {
-  const t = useTranslations('Navbar');
+  const t = useTranslations('HomePage');
   const pathname = usePathname();
   const isMobile = useMediaQuery({ maxWidth: 768 });
   
@@ -20,7 +20,7 @@ const StoreNavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   
   // Define transparent pages
-  const transparentPages = ['/', '/all'];
+  const transparentPages = ['/'];
   const isTransparentPage = transparentPages.includes(pathname);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const StoreNavBar = () => {
       <div className={`${styles.navbarContent} storeContainer`}>
         <Link href={"/"} className={styles.logo}>
           <Image
-            src={"/images/images/gumstar.png"}
+            src={"/images/images/logo.svg"}
             className={styles.imagelogo}
             width={100}
             height={100}
@@ -83,31 +83,31 @@ const StoreNavBar = () => {
           <ul className={`${styles.navLinks}`}>
             <li>
               <Link href="/" className={pathname === '/' ? styles.active : ''}>
-                Asosiy
+              {t('viewall')}
                 <span className={styles.linkUnderline}></span>
               </Link>
             </li>
             <li>
               <Link href="/company" className={pathname === '/company' ? styles.active : ''}>
-                kompaniya haqida
+              {t('wideadtitleone')}
                 <span className={styles.linkUnderline}></span>
               </Link>
             </li>
             <li>
               <Link href="/all" className={pathname === '/all' ? styles.active : ''}>
-                mahsulotlar
+              {t('wideadtitletwo')}
                 <span className={styles.linkUnderline}></span>
               </Link>
             </li>
             <li>
               <Link href="/partners" className={pathname === '/partners' ? styles.active : ''}>
-                hamkorlik
+              {t('latestnews')}
                 <span className={styles.linkUnderline}></span>
               </Link>
             </li>
             <li>
               <Link href="/contact" className={pathname === '/contact' ? styles.active : ''}>
-                aloqa
+              {t('blogtitlezero')}
                 <span className={styles.linkUnderline}></span>
               </Link>
             </li>
@@ -122,7 +122,7 @@ const StoreNavBar = () => {
             </div>
 
             <div className={styles.phoneNumber}>
-              <Link href="tel:+998974444082">+998 97 444-40-82</Link>
+              <Link href="tel:+998931230212">+998 93 123-02-12</Link>
             </div>
           </div>
         </div>

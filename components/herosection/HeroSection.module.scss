@@ -119,16 +119,16 @@
     border: 3px solid rgb(7, 162, 65);
     
     &:hover {
-      background-color: white;
+      background-color: transparent;
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-      color: black;
+      color: white;
       
     }
   }
   
   .secondaryButton {
     background-color: transparent;
-    color: rgb(7, 162, 65);
+    color: white;
     border: 3px solid rgb(7, 162, 65);
     
     &:hover {

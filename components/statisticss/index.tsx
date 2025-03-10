@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './StatisticsCard.module.scss';
 import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 
 
 interface StatisticsCardProps {
@@ -17,6 +18,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
   imageUrl,
   imageAlt,
 }) => {
+  const t = useTranslations('HomePage');
   return (
     <div className={styles.card}>
       {/* Title Section */}
@@ -41,7 +43,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
           href={"/about"}
           className={styles.tamombuttom}
           >
-          <button>batafsil</button></Link>
+          <button>{t('blogtitlethree')}</button></Link>
         </div>
       </div>
     </div>

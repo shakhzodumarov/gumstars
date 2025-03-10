@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './InteractiveManufacturingImage.module.scss';
+import { useTranslations } from 'next-intl';
 
 interface HotspotInfo {
   id: string;
@@ -26,12 +27,13 @@ const InteractiveManufacturingImage: React.FC<InteractiveManufacturingImageProps
   imageSrc = "/api/placeholder/1200/800",
   imageAlt = "Manufacturing facility layout"
 }) => {
+  const t = useTranslations('HomePage');
   // Define the four manufacturing sections/hotspots with different shapes
   const hotspots: HotspotInfo[] = [
     {
       id: "raw-materials",
-      title: "Raw Materials Processing",
-      description: "This section handles the intake and initial processing of raw materials. Materials are sorted, cleaned, and prepared for the manufacturing process.",
+      title: t('niggasinparisthree'),
+      description: t('contactLink'),
       position: { top: "40%", left: "0%" },
       shape: 'rectangle',
       width: "25%",
@@ -39,24 +41,26 @@ const InteractiveManufacturingImage: React.FC<InteractiveManufacturingImageProps
     },
     {
       id: "assembly",
-      title: "Assembly Line",
-      description: "The assembly line is where components are put together to create the final product. Automated systems and skilled workers operate in tandem for maximum efficiency.",
+      title: t('niggasinparisthreee'),
+      description: t('contactLink'),
       position: { top: "35%", left: "75%" },
-      shape: 'circle',
-      radius: "22%"
+      shape: 'rectangle',
+      width: "18%",
+      height: "20%"
     },
     {
       id: "quality-control",
-      title: "Quality Control",
-      description: "Every product undergoes rigorous testing in this section. Advanced sensors and trained inspectors ensure only perfect products move to packaging.",
+      title: t('homeLink'),
+      description: t('contactLink'),
       position: { top: "38%", left: "25%" },
-      shape: 'polygon',
-      points: "0,0 70,0 2305,20 -100,30 0,20" 
+      shape: 'rectangle',
+      width: "25%",
+      height: "30%"
     },
     {
       id: "packaging",
-      title: "Packaging and Shipping",
-      description: "The final stage where products are packaged, labeled, and prepared for shipping. State-of-the-art logistics systems ensure timely delivery.",
+      title: t('shopLink'),
+      description: t('contactLink'),
       position: { top: "35%", left: "50%" },
       shape: 'rectangle',
       width: "25%",

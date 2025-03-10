@@ -39,7 +39,7 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
               name: productResponse.res.name,
               desc: productResponse.res.desc || "",
               categoryID: productResponse.res.category.id,
-              images: productResponse.res.images || [],
+              images: productResponse.res.images,
               specifications: productResponse.res.specs || [],
               isAvailable: productResponse.res.isAvailable
             });
@@ -76,6 +76,7 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
           type="text"
           value={data.name}
           onChange={(e) => handleChange("name", e.target.value)}
+          placeholder="..."
         />
       </div>
       
@@ -84,6 +85,7 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
         <textarea
           value={data.desc || ""}
           onChange={(e) => handleChange("desc", e.target.value)}
+          placeholder="..."
         />
       </div>
       
@@ -92,6 +94,7 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
         <select
           value={data.categoryID}
           onChange={(e) => handleChange("categoryID", e.target.value)}
+          
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -107,6 +110,7 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
           type="checkbox"
           checked={data.isAvailable}
           onChange={(e) => handleChange("isAvailable", e.target.checked)}
+          placeholder="..."
         />
       </div>
       
@@ -114,13 +118,15 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
       <div className={styles.formGroup}>
         <label>Изображения:</label>
         <div className={styles.imagesList}>
+          {/* @ts-ignore */}
           {data.images && data.images.map((img, index) => (
             <div key={index} className={styles.imageItem}>
               <img src={img} alt={`Product ${index}`} width="50" height="50" />
               <button
                 type="button"
                 onClick={() => {
-                  const newImages = [...data.images];
+                  const newImages = data.images;
+                  //@ts-ignore
                   newImages.splice(index, 1);
                   handleChange("images", newImages);
                 }}

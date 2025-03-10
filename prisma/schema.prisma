@@ -73,7 +73,7 @@ model Product {
   name            String
   isAvailable     Boolean       @default(true)
   desc            String?
-  images          String[]
+  images          String
   category        Category      @relation(fields: [categoryID], references: [id])
   categoryID      String        @db.ObjectId
   optionSets      String[]      @db.ObjectId
