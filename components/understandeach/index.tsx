@@ -12,14 +12,14 @@ const MultiImageSliderImages = () => {
   
   // Sample images - replace with your actual images
   const images = [
-    { id: 1, src: "/images/images/busines.jpg", alt: "Image 1" },
-    { id: 2, src: "/images/images/busines.jpg", alt: "Image 2" },
-    { id: 3, src: "/images/images/busines.jpg", alt: "Image 3" },
-    { id: 4, src: "/images/images/busines.jpg", alt: "Image 4" },
-    { id: 5, src: "/images/images/busines.jpg", alt: "Image 5" },
-    { id: 6, src: "/images/images/busines.jpg", alt: "Image 6" },
-    { id: 7, src: "/images/images/busines.jpg", alt: "Image 7" },
-    { id: 8, src: "/images/images/busines.jpg", alt: "Image 8" },
+    { id: 1, src: "/images/images/internet.jpg", alt: "Image 1" },
+    { id: 2, src: "/images/images/factory.jpg", alt: "Image 2" },
+    { id: 3, src: "/images/images/factory4.jpg", alt: "Image 3" },
+    { id: 4, src: "/images/images/factory2.jpg", alt: "Image 4" },
+    { id: 5, src: "/images/images/factory5.jpg", alt: "Image 5" },
+    { id: 6, src: "/images/images/zavods.jpg", alt: "Image 6" },
+    { id: 7, src: "/images/images/factory1.jpg", alt: "Image 7" },
+    { id: 8, src: "/images/images/factory6.jpg", alt: "Image 8" },
   ];
 
   // Auto-slide functionality

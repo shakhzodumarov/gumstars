@@ -16,7 +16,7 @@ const Footer = () => {
       </div>
       <section className={styles.bottom}>
         <div className={`${styles.footerWrapper} storeContainer`}>
-          <span>{t('blogdescone')} <Link href={"https://www.smkweb.com/"}>SMK WEB</Link></span>
+          <span>Designed and Made by <Link href={"https://www.smkweb.com/"}>SMK WEB</Link></span>
           <div className={styles.legal}>
         
           </div>

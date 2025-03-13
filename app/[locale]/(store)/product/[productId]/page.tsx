@@ -11,6 +11,7 @@ import { TProductPageInfo } from "@/types/product";
 import { SK_Box } from "@/components/UI/skeleton";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
+import All from "../../all/page";
 
 const ProductPage = () => {
   const t = useTranslations('HomePage');
@@ -31,7 +32,11 @@ const ProductPage = () => {
   }, [productId, router]);
 
   return (
-    <div className="storeContainer">
+    <div>
+      <div className={styles.backimg}>
+        
+      </div>
+    {/* <div className="storeContainer"> */}
       <div className={styles.productPage}>
         <div className={styles.upperSection}>
           {/* Product board on the left */}
@@ -64,7 +69,8 @@ const ProductPage = () => {
 
           {/* Gallery in the center */}
           <div className={styles.centerSection}>
-            {/* <Gallery images={productInfo?.images} /> */}
+            {/* @ts-ignore */}
+            <Gallery images={productInfo?.images} />
           </div>
 
           {/* Specifications on the right */}
@@ -95,6 +101,11 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
+    {/* </div> */}
+    <div className={styles.backimgs}>
+        
+      </div>
+      <All/>
     </div>
   );
 };

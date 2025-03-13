@@ -12,14 +12,10 @@ const Contact: React.FC = () => {
       <div className={styles.contactInfo}>
         <h2>{t('niggaonefour')}</h2>
         <p>{t('niggaoneseven')}</p>
-        <p>+998 93 123-02-12</p>
+        <p>+998 71 200-44-88</p>
         <br />
-        <h2>{t('niggaonefive')}</h2>
-        <p>+998 97 444-40-73</p>
-        <br />
-        <h2>
-        {t('niggaonesix')}</h2>
-        <p>+998 97 444-40-82</p>
+        {/* <h2>{t('niggaonefive')}</h2> */}
+        <p>+998 97 444-40-72</p>
         <br />
         <h2>
         E-mail</h2>
@@ -44,3 +40,4 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
+

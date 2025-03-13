@@ -19,16 +19,16 @@ export default function Company() {
     
    <ServiceComponent/>
    <h1 className={styles.adopted}>{t('niggaonetenw')}</h1>
-   <Image
-   src={"/images/images/sertif.png"}
+   <img
+   src={"/images/images/thesum.jpg"}
    alt="img"
-   width={100}
-   height={100}
+  //  width={100}
+  //  height={100}
    className={styles.imagesertif}
    />
    <ConnectedDotsAnimation/>
    <InteractiveManufacturingImage 
-        imageSrc="/images/images/zavod.jpg" 
+        imageSrc="/images/images/zavods.jpg" 
         imageAlt="Our state-of-the-art manufacturing facility" 
       />
    <MultiImageSlider/>

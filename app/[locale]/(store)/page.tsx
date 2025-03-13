@@ -42,7 +42,7 @@ export default function Home() {
             <HeroSection
               title={t('title')}
               description={t('about')}
-              videoSrc="/images/images/gumstarr.mp4"
+              videoSrc="/images/images/gums.mp4"
             
               primaryButton={{
                 label: t('loading'),
@@ -59,7 +59,7 @@ export default function Home() {
             <StatisticsCard
               title={t('wideadtitleone')}
               description={t('blogtitletwo')}
-              imageUrl="/images/images/brum.png"
+              imageUrl="/images/images/zavods.jpg"
               imageAlt="Product performance"
       
             />

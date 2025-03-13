@@ -34,38 +34,30 @@ const InteractiveManufacturingImage: React.FC<InteractiveManufacturingImageProps
       id: "raw-materials",
       title: t('niggasinparisthree'),
       description: t('contactLink'),
-      position: { top: "40%", left: "0%" },
+      position: { top: "40%", left: "8%" },
       shape: 'rectangle',
-      width: "25%",
-      height: "35%"
+      width: "20%",
+      height: "45%"
     },
     {
       id: "assembly",
       title: t('niggasinparisthreee'),
       description: t('contactLink'),
-      position: { top: "35%", left: "75%" },
+      position: { top: "40%", left: "92%" },
       shape: 'rectangle',
-      width: "18%",
-      height: "20%"
+      width: "8%",
+      height: "40%"
     },
     {
       id: "quality-control",
       title: t('homeLink'),
       description: t('contactLink'),
-      position: { top: "38%", left: "25%" },
+      position: { top: "24%", left: "28%" },
       shape: 'rectangle',
-      width: "25%",
-      height: "30%"
+      width: "64%",
+      height: "60%"
     },
-    {
-      id: "packaging",
-      title: t('shopLink'),
-      description: t('contactLink'),
-      position: { top: "35%", left: "50%" },
-      shape: 'rectangle',
-      width: "25%",
-      height: "30%"
-    }
+
   ];
 
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);

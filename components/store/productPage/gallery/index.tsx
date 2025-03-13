@@ -6,12 +6,11 @@ import { useState } from "react";
 import { SK_Box } from "@/components/UI/skeleton";
 
 interface IProps {
-  images?: string[];
+  images?: string; // Single image URL (string)
 }
 
 const Gallery = ({ images }: IProps) => {
   const [showZoom, setShowZoom] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [zoomPosition, setZoomPosition] = useState({ x: "50%", y: "50%" });
   const [isHovering, setIsHovering] = useState(false);
 
@@ -24,7 +23,7 @@ const Gallery = ({ images }: IProps) => {
 
   return (
     <div className={styles.gallery}>
-      <div 
+      <div
         className={styles.imageWrapper}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovering(true)}
@@ -33,18 +32,20 @@ const Gallery = ({ images }: IProps) => {
       >
         {images ? (
           <Image
-            src={images[selectedIndex]}
-            alt=""
+            src={images} // Using the single image URL directly
+            alt="Gallery Image"
             fill
             sizes="(max-width:500px)"
             className={isHovering ? styles.zoomedImage : ""}
             style={{ transformOrigin: `${zoomPosition.x} ${zoomPosition.y}` }}
-            onClick={() => setShowZoom(true)} // To trigger zoom window on image click
+            onClick={() => setShowZoom(true)} // Trigger zoom window on click
           />
         ) : (
           <SK_Box width="90%" height="90%" />
         )}
       </div>
+
+      {/* Zoom Window */}
       {images && showZoom ? (
         <div className={styles.zoomWindow}>
           <div className={styles.background} onClick={() => setShowZoom(false)} />
@@ -52,7 +53,7 @@ const Gallery = ({ images }: IProps) => {
             <button onClick={() => setShowZoom(false)}>
               <CloseIcon width={16} />
             </button>
-            <Image src={images[selectedIndex]} alt="" fill sizes="(max-width:700px)" />
+            <Image src={images} alt="Zoomed Image" fill sizes="(max-width:700px)" />
           </div>
         </div>
       ) : (
@@ -63,4 +64,3 @@ const Gallery = ({ images }: IProps) => {
 };
 
 export default Gallery;
-

@@ -7,7 +7,6 @@ import {
   TPath,
   TProductListItem,
   TProductRecentItem,
-  TProductRelatedItem,
   TSpecification,
 } from "@/types/product";
 import { ProductSpec } from "@prisma/client";
@@ -256,41 +255,6 @@ const getPathByCategoryID = async (
     return null;
   }
 };
-export const getRelatedProducts = async (categoryID: string) => {
-  if (!categoryID || categoryID === "") {
-    return { error: "Invalid category ID" };
-  }
-
-  try {
-    const result: TProductRelatedItem[] = await db.product.findMany({
-      where: {
-        categoryID: categoryID, 
-      },
-      select: {
-        id: true,
-        name: true,
-        images: true,
-        isAvailable: true,
-        categoryID: true,
-        category: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
-    });
-
-    if (!result || result.length === 0) {
-      return { error: "No related products found." };
-    }
-
-    return { res: result };
-  } catch (error) {
-    return { error: JSON.stringify(error) };
-  }
-};
-
 
 export const getRecentProducts = async () => {
   try {
@@ -378,6 +342,96 @@ export const updateProduct = async (productID: string, data: TAddProductFormValu
     }
   } catch (error) {
     console.error("Error updating product:", error);
+    return { error: JSON.stringify(error) };
+  }
+};
+
+
+
+export const getRelatedProducts = async (productID: string, categoryID: string) => {
+  if (!productID || !categoryID) {
+    return { error: "Invalid product or category ID" };
+  }
+
+  try {
+    // First, get the current product's category details
+    const category = await db.category.findUnique({
+      where: { id: categoryID },
+      select: {
+        id: true,
+        parentID: true
+      }
+    });
+
+    if (!category) {
+      return { error: "Category not found" };
+    }
+
+    // Determine which category ID to use for finding related products
+    // If the current category has few products, we'll use the parent category
+    const productsInCategory = await db.product.count({
+      where: { categoryID: category.id }
+    });
+
+    // Use parent category if current category has less than 5 products (excluding current product)
+    const targetCategoryID = productsInCategory <= 5 && category.parentID 
+      ? category.parentID 
+      : category.id;
+
+    // Fetch related products from the same category (or parent category if needed)
+    const relatedProducts: TProductRecentItem[] = await db.product.findMany({
+      where: {
+        categoryID: targetCategoryID,
+        id: { not: productID }, // Exclude the current product
+        isAvailable: true       // Only show available products
+      },
+      take: 8, // Limit to 8 related products
+      select: {
+        id: true,
+        name: true,
+        isAvailable: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        images: true,
+      },
+    });
+
+    if (!relatedProducts || relatedProducts.length === 0) {
+      // If no related products found in the target category,
+      // fetch products from any category as fallback
+      const fallbackProducts: TProductRecentItem[] = await db.product.findMany({
+        where: {
+          id: { not: productID },
+          isAvailable: true
+        },
+        take: 8,
+        orderBy: {
+          createdAt: 'desc' // Get the newest products as fallback
+        },
+        select: {
+          id: true,
+          name: true,
+          isAvailable: true,
+          category: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          images: true,
+        },
+      });
+
+      return { res: fallbackProducts };
+    }
+
+    return { res: relatedProducts };
+  } catch (error) {
+    console.error("Error fetching related products:", error);
     return { error: JSON.stringify(error) };
   }
 };

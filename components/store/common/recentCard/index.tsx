@@ -30,7 +30,7 @@ const RecentCard = ({
       </div>
       <div className={styles.textwrapper}>
         <span className={styles.title}>{name}</span>
-        {/* <div className={styles.specWrapper}></div> */}
+ 
       </div>
     </Link>
   );

@@ -39,7 +39,7 @@
     > img {
       cursor: pointer;
       border-radius: 6px;
-      border: 1px solid nth($color-light, 3);
+      // border: 1px solid nth($color-light, 3);
       transition: border-color 0.3s;
       &:hover {
         border-color: nth($color-light, 6);
@@ -61,7 +61,7 @@
       cursor: zoom-in;
       object-fit: contain;
       border-radius: 12px;
-      border: 1px solid white;
+      // border: 1px solid white;
       transition: border-color 0.3s;
       &:hover {
         border-color: nth($color-light, 3);
