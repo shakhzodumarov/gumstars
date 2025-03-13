@@ -273,21 +273,7 @@ background-repeat: no-repeat;
     }
   }
 }
-@media (max-width: 1440px) {
-  .something {
-    &__container {
-      width: 1540px;
-      height: 70vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
 
-  
-      position: relative;
-  
-    }
-  }
-}
 @media (max-width: 1024px) {
   .something {
     &__container {
