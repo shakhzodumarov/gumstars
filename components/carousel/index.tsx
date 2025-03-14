@@ -13,14 +13,6 @@ const AutoImageSlider = () => {
   
   const slides = [
     {
-      id: 1,
-      title: "PLIX",
-      description: "House special with secret sauce",
-      price: t('blogthree'),
-      image: "/images/images/slide.png",
-      color: "#07a241"
-    },
-    {
       id: 2,
       title: "PULPY",
       description: "Fresh from our wood-fired oven",

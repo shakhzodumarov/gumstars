@@ -122,7 +122,7 @@ const StoreNavBar = () => {
             </div>
 
             <div className={styles.phoneNumber}>
-              <Link href="tel:+998931230212">+998 93 123-02-12</Link>
+              <Link href="tel:+998931230212">+998 71 200-44-88</Link>
             </div>
           </div>
         </div>

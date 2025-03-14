@@ -53,7 +53,7 @@
   }
   
   .infoBox {
-    width: 300px;
+    width: 250px;
     background-color: rgba(255, 255, 255, 0.8);
     color: black;
     padding: 25px;
@@ -61,7 +61,7 @@
     border: 3px solid #137835;
     z-index: 10;
     box-shadow: 0 4px 8px rgba(254, 254, 254, 0.3);
-    transform: translateX(20%);
+    transform: translateX(-52%);
     pointer-events: none; // Prevent the info box from interfering with mouse events
   }
   

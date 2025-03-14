@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
       <div className={styles.mapContainer}>
         <div id="yandex-map" className={styles.yandexMap}>
 {/* @ts-ignore */}
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af1c4d9e2d22d7c3d3309a02d5b6e23de03a0af6f09dd05afa8c7c4f424438843&amp;source=constructor" width="800" height="600" frameborder="0" className={styles.themotiontext} ></iframe>
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6765b4fa89ed04eb7369a88396047d4c1a7a675b41d292022c8d6f66c543d818&amp;source=constructor" width="800" height="600" frameborder="0" className={styles.themotiontext} ></iframe>
         </div>
       </div>
     </div>
@@ -41,3 +41,5 @@ const Contact: React.FC = () => {
 
 export default Contact;
 
+
+///<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6765b4fa89ed04eb7369a88396047d4c1a7a675b41d292022c8d6f66c543d818&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>
