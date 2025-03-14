@@ -74,15 +74,15 @@ const WorldMap = () => {
 };
 
 const markers = [
-  { name: t('collectionwatch'), coordinates: [-50.3451, 5.3775] },
-  { name: t('wideadtitledescone'), coordinates: [-179.2137, 56.2276] },
-  { name: t('collectionphones'), coordinates: [-95.2433, 5.9637] },
-  { name: t('callaccessories'), coordinates: [34.1954, -5.8617] },
-  { name: t('collectionaccessories'), coordinates: [-28.9629, -40.5937] },
-  { name: t('callaccessoriesone'), coordinates: [51.9758, -74.2105] },
-  { name: t('servislar'), coordinates: [-179.9699, 60.5039] },
-  { name: t('wideadtitledesc'), coordinates: [-160.4515, 60.1657] },
-  { name: t('collectionipad'), coordinates: [-144.2275, 47.8182] }
+  { name: t('collectionwatch'), coordinates: [-40.3451, 35.3775] },
+  { name: t('wideadtitledescone'), coordinates: [-179.2137, 86.2276] },
+  { name: t('collectionphones'), coordinates: [-75.2433, 35.9637] },
+  { name: t('callaccessories'), coordinates: [24.1954, 25.8617] },
+  { name: t('collectionaccessories'), coordinates: [-18.9629, 10.5937] },
+  { name: t('callaccessoriesone'), coordinates: [21.9758, -14.2105] },
+  { name: t('servislar'), coordinates: [-169.9699, 95.5039] },
+  { name: t('wideadtitledesc'), coordinates: [-145.4515, 80.1657] },
+  { name: t('collectionipad'), coordinates: [-134.2275, 67.8182] }
 ];
   const uzbekistanCoordinates = markers.find(
     (marker) => marker.name === t('collectionwatch')
@@ -105,10 +105,16 @@ const markers = [
   }, [animationIndex]);
 
   return (
+    <div className={styles.thehomepage}>
+      {/* <img src="
+      /images/images/horror.png
+      " alt="" 
+      className={styles.nimaga}
+      /> */}
     <div className={styles.something__container}>
       <div className={styles.something__mapWrapper}>
         <ComposableMap
-          projectionConfig={{ scale: 215 }}
+          projectionConfig={{ scale: 190 }}
           className={styles.something__map}
         >
           {/* Display world map */}
@@ -249,7 +255,7 @@ const markers = [
           </div>
         )}
       </div>
-    </div>
+    </div></div>
   );
 };
 

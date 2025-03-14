@@ -1,57 +1,13 @@
 .something {
   &__container {
-    width: 100%;
-    height: 100vh;
+    min-width: 1540px;
+    height: 800px;
     background-image: url("/images/images/horror.png");
-    object-fit: cover;
     display: flex; // Added for layout
-    // overflow-x: scroll; // Ensure horizontal scroll on small screens
-// overflow-y: auto;
     position: relative;
 background-repeat: no-repeat;
-  }
-
-  &__map {
-    width: 100%;
-    height: 100%;
-  }
-
-  &__geography {
-    fill: #ffffff;
-    stroke: #FFFFFF;
-    stroke-width: 0.5;
-
-    &:hover {
-      fill: #F53;
-    }
-
-    &:pressed {
-      fill: #E42;
-    }
-  }
-
-  &__marker {
-    transition: all 0.3s ease-in-out;
-   
-    circle {
-      stroke: #FFF;
-      stroke-width: 2;
-      transition: all 0.3s ease-in-out;
-      //  background-image: url("/images/images/gumstars.png");
-    }
-
-    text {
-      font-family: system-ui;
-      fill: #5D5A6D;
-      font-size: 12px;
-      font-weight: normal;
-      transition: all 0.3s ease-in-out;
-
-      &.active {
-        font-size: 14px;
-        font-weight: bold;
-      }
-    }
+overflow-x: auto;  // Allow horizontal scrolling
+overflow-y: hidden;  // Prevent vertical overflow if not needed
   }
 
   &__line {
@@ -60,8 +16,9 @@ background-repeat: no-repeat;
 
   // New styles for the map wrapper and info box
   &__mapWrapper {
-    width: 100%;
-    height: 100%;
+    width: 1540px;
+    // height: 50vh;
+    
   }
 
   &__infoBox {
@@ -69,7 +26,7 @@ background-repeat: no-repeat;
     border: 3px solid #07a241;
     text-align: center;
     margin-top: 10%;
-    left: 70%;
+    left: 60%;
     width: 25%;
     height: 60%;
     background-color: rgba(255, 255, 255, 0.995);
@@ -127,20 +84,6 @@ background-repeat: no-repeat;
   object-fit: cover;
 }
 
-
-
-
-
-
-
-
-// .something__flagContainer {
-//   width: 60px;
-//   height: 40px;
-//   margin: 10px 0;
-//   border: 1px solid #ddd;
-//   overflow: hidden;
-// }
 
 .something__flag {
   width: 100%;
@@ -240,160 +183,34 @@ background-repeat: no-repeat;
 }
 
 
-@media (max-width: 768px) {
-  .something {
-    &__container {
-      width: 1540px;
-      height: 100vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
-      overflow-x: scroll; 
-  
-      position: relative;
-  
-    }
-  }
-}
-
 
 
 @media (min-width: 1540px) {
   .something {
     &__container {
       width: 1540px;
-      height: 76vh;
-      background-image: url("/images/images/horror.png");
+      height: 800px;  // Keep height fixed
       object-fit: cover;
-      display: flex; 
-
-  
+      display: flex;
       position: relative;
-  
     }
   }
 }
 
-
-@media (max-width: 1540px) {
-  .something {
-    &__container {
-      width: 1540px;
-      height: 76vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
-
-  
-      position: relative;
-  
-    }
-  }
-}
-
-@media (max-width: 1380px) {
-  .something {
-    &__container {
-      width: 1540px;
-      height: 85vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
-
-  
-      position: relative;
-  
-    }
-    &__infoBox {
-      display: none;
-      }
-  }
-}
-
-
-@media (max-width: 1340px) {
-  .something {
-    &__container {
-      width: 1540px;
-      height: 76vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
-
-  
-      position: relative;
-  
-    }
-     &__infoBox {
-    display: none;
-    }
-  
-  }
-}
-
-@media (max-width: 1024px) {
-  .something {
-    &__container {
-      width: 1524px;
-      height: 85vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
-overflow-x: scroll;
-  
-      position: relative;
-  
-    }
-    &__infoBox {
-    display: none;
-    }
-  }
-
-
-}
-
-@media (max-width: 980px) {
-  .something {
-    &__container {
-      width: 1524px;
-      height: 85vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
-overflow-x: scroll;
-  
-      position: relative;
-  
-    }
-    &__infoBox {
-    display: none;
-    }
-  }
-
-
-}
-
-@media (max-width: 768px) {
-  .something {
-    &__container {
-      width: 1540px;
-      height: 85vh;
-      background-image: url("/images/images/horror.png");
-      object-fit: cover;
-      display: flex; 
-overflow-x: scroll;
-  
-      position: relative;
-  
-    }
-  }
-}
 
 @media (max-width: 420px) {
   .something {
     &__container {
-      display: none;
-  
+      width: 1540px;  // Fixed width for smaller devices
+      height: 800px;  // Fixed height for smaller devices
+      overflow-x: scroll;  // Enable horizontal scrolling on smaller screens
     }
   }
+}
+
+.nimaga{
+  position: absolute;
+  width: 1540px;
+  // height: 700px;
+  background-repeat: no-repeat;
 }
