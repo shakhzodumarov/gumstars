@@ -2,9 +2,11 @@
   &__container {
     min-width: 1540px;
     height: 800px;
-    background-image: url("/images/images/horror.png");
+    background-image: url("/images/images/irving.png");
     display: flex; // Added for layout
     position: relative;
+    object-fit: cover;
+    font-size: 6px;
 background-repeat: no-repeat;
 overflow-x: auto;  // Allow horizontal scrolling
 overflow-y: hidden;  // Prevent vertical overflow if not needed
@@ -26,7 +28,7 @@ overflow-y: hidden;  // Prevent vertical overflow if not needed
     border: 3px solid #07a241;
     text-align: center;
     margin-top: 10%;
-    left: 60%;
+    left: 65%;
     width: 25%;
     height: 60%;
     background-color: rgba(255, 255, 255, 0.995);
@@ -161,7 +163,7 @@ overflow-y: hidden;  // Prevent vertical overflow if not needed
   }
   
   span {
-    width: 30px;
+    width: 20px;
     text-align: right;
   }
 }

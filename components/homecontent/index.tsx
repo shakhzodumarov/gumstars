@@ -21,68 +21,96 @@ const WorldMap = () => {
     description: t('shitbag'),
     image: "/images/images/uzb.jpg",
     flagImage: "/images/images/location.png", // Add country flag or representative image
-    size: 40 // Size for the image display
+    size: 30 // Size for the image display
   },
   [t('wideadtitledescone')]: {
     description: t('shitbag'),
     image: "/images/images/paris.jpg",
     flagImage: "/images/images/location.png",
-    size: 70
+    size: 30
   },
   [t('collectionphones')]: {
     description: t('shitbag'),
     image: "/images/images/turkey.jpg",
     flagImage: "/images/images/location.png",
-    size: 70
+    size: 30
   },
   [t('callaccessories')]: {
     description: t('shitbag'),
     image: "/images/images/china.jpg",
     flagImage: "/images/images/location.png",
-    size: 70
+    size: 30
   },
   [t('collectionaccessories')]: {
     description: t('shitbag'),
     image: "/images/images/india.jpg",
     flagImage: "/images/images/location.png",
-    size: 70
+    size: 30
   },
-  [t('callaccessoriesone')]: {
-    description: t('shitbag'),
-    image: "/images/images/malasiya.jpg",
-    flagImage: "/images/images/location.png",
-    size: 70
-  },
+  // [t('callaccessoriesone')]: {
+  //   description: t('shitbag'),
+  //   image: "/images/images/malasiya.jpg",
+  //   flagImage: "/images/images/location.png",
+  //   size: 40
+  // },
   [t('servislar')]: {
     description: t('shitbag'),
     image: "/images/images/belgium.jpg",
     flagImage: "/images/images/location.png",
-    size: 70
+    size: 30
   },
   [t('wideadtitledesc')]: {
     description: t('shitbag'),
     image: "/images/images/berlin.jpg",
     flagImage: "/images/images/location.png",
-    size: 70
+    size: 30
   },
   [t('collectionipad')]: {
     description: t('shitbag'),
     image: "/images/images/switzerland.jpg",
     flagImage: "/images/images/location.png",
-    size: 70
+    size: 30
+  },
+  [t('supanigga')]: {
+    description: t('shitbag'),
+    image: "/images/images/almaty.jpeg",
+    flagImage: "/images/images/location.png",
+    size: 30
+  },
+  [t('supaniggas')]: {
+    description: t('shitbag'),
+    image: "/images/images/bishkek.jpg",
+    flagImage: "/images/images/location.png",
+    size: 30
+  },
+  [t('supaniggass')]: {
+    description: t('shitbag'),
+    image: "/images/images/dushanbe.jpg",
+    flagImage: "/images/images/location.png",
+    size: 30
+  },
+  [t('supaniggar')]: {
+    description: t('shitbag'),
+    image: "/images/images/kabul.jpg",
+    flagImage: "/images/images/location.png",
+    size: 30
   }
 };
 
 const markers = [
-  { name: t('collectionwatch'), coordinates: [-40.3451, 35.3775] },
-  { name: t('wideadtitledescone'), coordinates: [-179.2137, 86.2276] },
-  { name: t('collectionphones'), coordinates: [-75.2433, 35.9637] },
-  { name: t('callaccessories'), coordinates: [24.1954, 25.8617] },
-  { name: t('collectionaccessories'), coordinates: [-18.9629, 10.5937] },
-  { name: t('callaccessoriesone'), coordinates: [21.9758, -14.2105] },
-  { name: t('servislar'), coordinates: [-169.9699, 95.5039] },
-  { name: t('wideadtitledesc'), coordinates: [-145.4515, 80.1657] },
-  { name: t('collectionipad'), coordinates: [-134.2275, 67.8182] }
+  { name: t('collectionwatch'), coordinates: [-20.3451, 8.3775] },
+  { name: t('wideadtitledescone'), coordinates: [-165.2137, 62.2276] },
+  { name: t('collectionphones'), coordinates: [-75.2433, 10.9637] },
+  { name: t('callaccessories'), coordinates: [24.1954, 5.8617] },
+  { name: t('collectionaccessories'), coordinates: [3.9629, -10.5937] },
+  // { name: t('callaccessoriesone'), coordinates: [21.9758, -14.2105] },
+  { name: t('servislar'), coordinates: [-148.9699, 62.5039] },
+  { name: t('supanigga'), coordinates: [-5.4515, 25.1657] }, //kazakhstan
+  { name: t('supaniggas'), coordinates: [2.4515, 6.1657] }, //kyrgyzystan
+  { name: t('supaniggar'), coordinates: [-18.4515, -8.1657] }, //afghanistan
+  { name: t('supaniggass'), coordinates: [-5.4515, 1.1657] }, //tadjikistan
+  { name: t('wideadtitledesc'), coordinates: [-130.4515, 65.1657] },
+  { name: t('collectionipad'), coordinates: [-114.2275, 49.8182] }
 ];
   const uzbekistanCoordinates = markers.find(
     (marker) => marker.name === t('collectionwatch')
@@ -106,11 +134,6 @@ const markers = [
 
   return (
     <div className={styles.thehomepage}>
-      {/* <img src="
-      /images/images/horror.png
-      " alt="" 
-      className={styles.nimaga}
-      /> */}
     <div className={styles.something__container}>
       <div className={styles.something__mapWrapper}>
         <ComposableMap
@@ -173,7 +196,7 @@ const markers = [
                   {/* Circle background when no image is shown */}
                   {!shouldShowImage && (
                     <circle
-                      r={name === t('collectionwatch') ? 15 : 12}
+                      r={name === t('collectionwatch') ? 15 : 8}
                       fill={name === t('collectionwatch') ? "#ffffff" : "#07a241"}
                       className={styles.something__marker}
                     />
@@ -181,11 +204,11 @@ const markers = [
                   
                   {/* Star icon when no image is shown */}
                   {!shouldShowImage && (
-                    <svg x="-10" y="-10" width="20" height="20">
+                    <svg x="-8" y="-8" width="20" height="20">
                       <image
                         href={"/images/images/stars.png"}
-                        width="20"
-                        height="20"
+                        width="15"
+                        height="15"
                         clipPath={`url(#circleClip-${name})`}
                       />
                       {/* Define a clip path to make the image circular */}

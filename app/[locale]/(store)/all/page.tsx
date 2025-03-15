@@ -7,8 +7,8 @@ import { getRecentProducts } from "@/actions/product/product";
 import { getAllCategoriesJSON } from "@/actions/category/category";
 import RecentCard from "@/components/store/common/recentCard";
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
-import CenterContent from "@/components/centercontent";
+// import { Link } from '@/i18n/routing';
+// import CenterContent from "@/components/centercontent";
 import Image from "next/image";
 
 export default function All() {
@@ -19,7 +19,16 @@ export default function All() {
   const [selectedChild, setSelectedChild] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isSplashVisible, setIsSplashVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const t = useTranslations('HomePage');
+
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 3000); // Keep the loading state for 2 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -195,7 +204,16 @@ export default function All() {
   };
 
   return (
-    <div className={styles.tyler}>
+    <div>
+       {isLoading ? (
+        <div className={styles.loadingScreen}>
+        <div className={styles.radiatingWaves}></div>
+        <div className={styles.logoContainer}>
+          <img src="/images/images/stars.png" alt="Logo" className={styles.spinningLogo} />
+        </div>
+      </div>
+
+       ) : (<div className={styles.tyler}>
       {/* <CenterContent /> */}
       <Image
       src={"/images/images/image.png"}
@@ -281,6 +299,9 @@ export default function All() {
       height={600}
       className={styles.discos}
       />
+    </div>)}
+
+
     </div>
   );
 }

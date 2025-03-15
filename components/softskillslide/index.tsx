@@ -8,7 +8,7 @@ const ConnectedDotsAnimation = () => {
   // State to store dot positions
   const [dots, setDots] = useState([]);
   const [pathProgress, setPathProgress] = useState(0);
-  const [canvasSize, setCanvasSize] = useState({ width: 1400, height: 600 });
+  const [canvasSize, setCanvasSize] = useState({ width: 1500, height: 500 });
   const animationRef = useRef(null);
   const containerRef = useRef(null);
   const animationComplete = useRef(false);
@@ -18,11 +18,11 @@ const ConnectedDotsAnimation = () => {
     // Function to generate fixed, non-crossing dots
     const generateFixedDots = () => {
       const newDots = [
-        { id: 0, x: 100, y: 100, label: t('niggaonetenr'), labels: t('niggaonetent') },
-        { id: 1, x: 1050, y: 250, label: t('niggaoneteny'), labels: t('niggaonetenu') },
+        { id: 0, x: 100, y: 150, label: t('niggaonetenr'), labels: t('niggaonetent') },
+        { id: 1, x: 1200, y: 50, label: t('niggaoneteny'), labels: t('niggaonetenu') },
         { id: 2, x: 700, y: 100, label: t('niggaoneteni'), labels: t('niggaoneteno') },
-        { id: 3, x: 750, y: 350, label: t('niggaonetenp'), labels: t('niggasinparis') },
-        { id: 4, x: 250, y: 320, label: t('niggasinparisone'), labels: t('niggasinparistwo') }
+        { id: 3, x: 900, y: 180, label: t('niggaonetenp'), labels: t('niggasinparis') },
+        { id: 4, x: 450, y: 20, label: t('niggasinparisone'), labels: t('niggasinparistwo') }
       ];
       
       return newDots;
@@ -306,9 +306,9 @@ const ConnectedDotsAnimation = () => {
                //@ts-ignore
                 x={dot.x}
                  //@ts-ignore
-                y={dot.y + 75}
+                y={dot.y + 130}
                 textAnchor="middle"
-                fontSize="22"
+                fontSize="24"
                 fontWeight="700"
                 fill="#07a241"
                 
@@ -321,9 +321,9 @@ const ConnectedDotsAnimation = () => {
                //@ts-ignore
                 x={dot.x}
                  //@ts-ignore
-                y={dot.y + 105}
+                y={dot.y + 160}
                 textAnchor="middle"
-                fontSize="10"
+                fontSize="13"
                 fill="#6b7280"
    
   

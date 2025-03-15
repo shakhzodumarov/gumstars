@@ -17,7 +17,7 @@ const AutoImageSlider = () => {
       title: "PULPY",
       description: "Fresh from our wood-fired oven",
       price: t('blogdescone'),
-      image: "/images/images/pulpy.jpg",
+      image: "/images/images/aware.png",
       color: "#07a241"
     },
     {
@@ -121,7 +121,7 @@ const AutoImageSlider = () => {
           </motion.div>
         </AnimatePresence>
 
-        <div className={styles.sliderControls}>
+        {/* <div className={styles.sliderControls}>
           <button 
             className={`${styles.controlButton} ${styles.prevButton}`}
             onClick={prevSlide}
@@ -157,7 +157,7 @@ const AutoImageSlider = () => {
             </svg>
           </button>
 
-        </div>
+        </div> */}
       </div>
     </section>
   );
