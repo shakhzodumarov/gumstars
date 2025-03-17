@@ -302,3 +302,8 @@
       transform: rotate(360deg);
     }
   }
+  @media (max-width: 468px) {
+.disco{
+  display: none;
+}
+  }

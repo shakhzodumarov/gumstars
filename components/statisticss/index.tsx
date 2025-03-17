@@ -40,7 +40,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
           <p className={styles.description}>{description}</p>
           <br />
           <Link
-          href={"/about"}
+          href={"/company"}
           className={styles.tamombuttom}
           >
           <button>{t('blogtitlethree')}</button></Link>
