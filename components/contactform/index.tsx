@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.module.scss';
 import { useTranslations } from 'next-intl';
-import { BiLogoFacebook, BiLogoInstagram } from 'react-icons/bi';
+import { BiLogoFacebook, BiLogoInstagram, BiLogoTelegram } from 'react-icons/bi';
 import { Link } from '@/i18n/routing';
 import { BsInstagram } from 'react-icons/bs';
 
@@ -12,6 +12,8 @@ const Contact: React.FC = () => {
       <div className={styles.contactInfo}>
         <h2>{t('niggaonefour')}</h2>
         <p>{t('niggaoneseven')}</p>
+        <br />
+        <h2>{t('niggaonefive')}</h2>
         <p>+998 71 200-44-88</p>
         <br />
         {/* <h2>{t('niggaonefive')}</h2> */}
@@ -25,7 +27,8 @@ const Contact: React.FC = () => {
         {t('niggaonenine')}</h2>
         <div className={styles.social}>
               <Link href={"https://www.instagram.com/"}><BsInstagram width={50} strokeWidth={0} /></Link>
-              <Link href={"https://www.facebook.com/"}><BiLogoFacebook width={50} strokeWidth={0} /></Link>
+              <Link href={"https://www.facebook.com/share/1UAGoXZJoF/"}><BiLogoFacebook width={50} strokeWidth={0} /></Link>
+              <Link href={"https://t.me/alif_gum"}><BiLogoTelegram width={50} strokeWidth={0} /></Link>
             </div>
         
       </div>

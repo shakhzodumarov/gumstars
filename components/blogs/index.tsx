@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './Home.module.scss';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { BiBookmarkHeart, BiLogoMarkdown } from 'react-icons/bi';
+import { MarsStroke, PointerIcon } from 'lucide-react';
+import { BsMarkerTip } from 'react-icons/bs';
 
 const ServiceComponent: React.FC = () => {
   const t = useTranslations('HomePage');
@@ -50,6 +53,20 @@ const ServiceComponent: React.FC = () => {
           <p className={styles.description}>
             {formatText(safeText)}
           </p>
+    <div className={styles.runniggarun}>
+      <p>
+      {t('runniggarun')}
+      </p>
+      <p>
+      {t('runniggaruns')}
+      </p>
+      <p>
+      {t('runniggaruna')}
+      </p>
+    </div>
+    <p className={styles.description}>
+    {t('runniggarune')}
+    </p>
         </div>
       </div>
       <Image
