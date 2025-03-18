@@ -123,6 +123,30 @@
     .title {
       font-size: 44px;
       text-align: center;
-      margin: 50px;
+      margin: 30px;
+    }
+
+  }
+
+
+  @media (max-width: 428px) {
+
+    .imageContainer {
+      flex: 1;
+      position: relative;
+      min-height: 240px;
+      margin-left: 10%;
+      margin-top: -40px;
+  
+    }
+    .image {
+      object-fit: cover;
+    }
+    .description {
+      font-size: 16px;
+      line-height: 1;
+      color: #666666;
+      margin: 0;
+      padding: 60px 65px;
     }
   }

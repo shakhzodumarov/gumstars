@@ -18,7 +18,7 @@ const ConnectedDotsAnimation = () => {
     // Function to generate fixed, non-crossing dots
     const generateFixedDots = () => {
       const newDots = [
-        { id: 0, x: 100, y: 150, label: t('niggaonetenr'), labels: t('niggaonetent') },
+        { id: 0, x: 250, y: 150, label: t('niggaonetenr'), labels: t('niggaonetent') },
         { id: 1, x: 1200, y: 50, label: t('niggaoneteny'), labels: t('niggaonetenu') },
         { id: 2, x: 700, y: 100, label: t('niggaoneteni'), labels: t('niggaoneteno') },
         { id: 3, x: 900, y: 180, label: t('niggaonetenp'), labels: t('niggasinparis') },

@@ -127,7 +127,7 @@ const markers = [
       setAnimationIndex((prevIndex) => 
         (prevIndex + 1) % countriesToAnimate.length
       );
-    }, 3000); // Change country every 3 seconds
+    }, 9000); // Change country every 3 seconds
     
     return () => clearInterval(interval);
   }, [animationIndex]);

@@ -2,9 +2,7 @@ import React from 'react';
 import styles from './Home.module.scss';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { BiBookmarkHeart, BiLogoMarkdown } from 'react-icons/bi';
-import { MarsStroke, PointerIcon } from 'lucide-react';
-import { BsMarkerTip } from 'react-icons/bs';
+
 
 const ServiceComponent: React.FC = () => {
   const t = useTranslations('HomePage');
