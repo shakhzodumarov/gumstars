@@ -70,8 +70,12 @@
   }
 
 
-  @media (max-width: 468px) {
+  @media (max-width: 428px) {
     .slideWrapper{
       display: none;
+    }
+    .guestbed{
+display: none;
+     
     }
       }

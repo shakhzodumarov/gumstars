@@ -133,7 +133,7 @@
    width: 100%;
    text-align: start;
    padding: 20px 50px;
-   font-size: 2rem;
+   font-size: 1.6rem;
    display: flex;
    margin: 20px;
   }
@@ -146,4 +146,26 @@
     .patricks{
       display: none;
     }
+  }
+
+
+  @media (max-width: 420px) {
+    .description {
+        padding: 20px;
+        font-size: 1.2 rem;
+        color: #666;
+        margin-bottom: 20px;
+        opacity: 0;
+        line-height: 22px;
+        animation: fadeIn 1s ease-in-out 1s forwards;
+      }
+      .runniggarun p{
+        color: #07a241;
+       width: 100%;
+       text-align: start;
+       padding: 20px 20px;
+       font-size: 1.2rem;
+       display: flex;
+       margin: 20px;
+      }
   }
