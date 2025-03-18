@@ -76,9 +76,9 @@ export default function Home() {
           <br />
           <br />
           <br />
-          <br /><br />
+          {/* <br /><br />
           <br />
-          <br />
+          <br /> */}
           <section id="contact-section">
             <ContactSection
               title={t('callaccessoriestwo')}

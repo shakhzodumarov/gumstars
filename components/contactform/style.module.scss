@@ -40,7 +40,7 @@
 
 .yandexMap {
   width: 100%;
-  // height: 400px; /* Set the desired height for the map */
+
 
 }
 
@@ -95,5 +95,14 @@
     &:hover {
       color: rgba(7, 162, 65, 0.79);
     }
+  }
+}
+
+
+@media (max-width: 430px) {
+  .yandexMap {
+    width: 50%;
+  
+  
   }
 }

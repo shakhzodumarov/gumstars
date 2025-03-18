@@ -47,6 +47,7 @@ const ServiceComponent: React.FC = () => {
       />
       <div className={styles.serviceContainer}>
         <div className={styles.hellomother}>
+          
           <h2 className={styles.title}>{t('niggaoneten')}</h2>
           <p className={styles.description}>
             {formatText(safeText)}

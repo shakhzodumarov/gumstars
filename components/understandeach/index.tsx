@@ -63,6 +63,8 @@ const MultiImageSliderImages = () => {
 
   return (
     <div className={styles.hovertext}>
+      <br />
+      <br />
       <h1>{t('wideadtitleone')}</h1>
     <div className={styles.multiSliderContainer}>
       <div className={styles.sliderWrapper}>

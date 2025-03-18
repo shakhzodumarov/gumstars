@@ -75,16 +75,27 @@
 
   @media (max-width: 640px) {
     .description {
-        padding: 50px;
-        font-size: 1rem;
+        padding: 20px;
+        font-size: 1.2rem;
         color: #666;
         margin-bottom: 20px;
         opacity: 0;
+        line-height: 22px;
         animation: fadeIn 1s ease-in-out 1s forwards;
+      }
+      .runniggarun p{
+        color: #07a241;
+       width: 100%;
+       text-align: start;
+       padding: 20px 20px;
+       font-size: 1.2rem;
+       display: flex;
+       margin: 20px;
       }
   }
 
   .hellomother{
+  
     padding: 20px;
     width: 70%;
     height: 90%;
