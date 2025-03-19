@@ -12,14 +12,14 @@ const MultiImageSliderImages = () => {
   
   // Sample images - replace with your actual images
   const images = [
-    { id: 1, src: "/images/images/1.png", alt: "Image 1" },
-    { id: 2, src: "/images/images/2.png", alt: "Image 2" },
-    { id: 3, src: "/images/images/14.png", alt: "Image 3" },
-    { id: 4, src: "/images/images/3.png", alt: "Image 4" },
-    { id: 5, src: "/images/images/15.png", alt: "Image 5" },
-    { id: 6, src: "/images/images/5.png", alt: "Image 6" },
-    { id: 7, src: "/images/images/20.png", alt: "Image 7" },
-    { id: 8, src: "/images/images/7.png", alt: "Image 8" },
+    { id: 1, src: "/images/images/art1.png", alt: "Image 1" },
+    { id: 2, src: "/images/images/art5.png", alt: "Image 2" },
+    { id: 3, src: "/images/images/art2.png", alt: "Image 3" },
+    { id: 4, src: "/images/images/art6.png", alt: "Image 4" },
+    { id: 5, src: "/images/images/art3.png", alt: "Image 5" },
+    { id: 6, src: "/images/images/art7.png", alt: "Image 6" },
+    { id: 7, src: "/images/images/art4.png", alt: "Image 7" },
+    { id: 8, src: "/images/images/art8.png", alt: "Image 8" },
   ];
 
   // Auto-slide functionality
