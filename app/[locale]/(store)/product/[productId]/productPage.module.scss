@@ -123,3 +123,22 @@ opacity: 0.3;
   margin-top: -15%;
 opacity: 0.3;
 }
+
+
+@media (max-width: 410px) {
+  .backimg{
+    width: 200px;
+    position: absolute;
+    height: 200px;
+    background-image: url("/images/images/whites.png");
+    background-repeat: no-repeat;
+    margin-left: 5%;
+    margin-top: -5%;
+  opacity: 0.3;
+  }
+  
+  
+  .backimgs{
+display: none;
+  }
+}

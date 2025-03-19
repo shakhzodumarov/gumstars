@@ -21,7 +21,7 @@ const ProductBoard = ({ boardData }: { boardData: TProductBoard }) => {
 
   return (
     <div className={styles.productBoard}>
-      <h1>{name}</h1><hr />
+      <h1>{name}</h1>
       <span className={styles.shortDesc}>{shortDesc}</span>
       
       <section className={styles.addToCartSection}>
