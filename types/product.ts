@@ -32,6 +32,8 @@ export type TProductBoard = {
   name: string;
   isAvailable: boolean;
   shortDesc: string;
+  shortDescrus: string;
+  shortDescuzb: string;
   dealDate?: Date;
   options?: TProductOption[];
   defaultQuantity: number;
@@ -54,6 +56,8 @@ export type TAddProductFormValues = {
   name: string;
   isAvailable: boolean;
   desc?: string;
+  descrus?: string;
+  descuzb?: string;
   images: string;
   categoryID: string;
   specifications: ProductSpec[];
@@ -94,6 +98,8 @@ export type TProductPageInfo = {
   name: string;
   isAvailable: boolean;
   desc: string | null;
+  descrus: string | null;
+  descuzb: string | null;
   images: string[];
   optionSets: string[];
   specifications: TSpecification[];

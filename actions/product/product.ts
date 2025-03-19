@@ -14,6 +14,8 @@ import { ProductSpec } from "@prisma/client";
 const ValidateAddProduct = z.object({
   name: z.string().min(3),
   desc: z.string().optional(),
+  descrus: z.string().optional(),
+  descuzb: z.string().optional(),
   images: z.string(),
   categoryID: z.string().min(6),
   specifications: z.array(
@@ -43,6 +45,8 @@ export const addProduct = async (data: TAddProductFormValues) => {
           create: {
             name: data.name,
             desc: data.desc || null,
+            descrus: data.descrus || null,
+            descuzb: data.descuzb || null,
             isAvailable: data.isAvailable,
             images: imageString, // Use the validated image string
             specs: data.specifications,
@@ -93,6 +97,8 @@ export const getOneProduct = async (productID: string) => {
         id: true,
         name: true,
         desc: true,
+        descrus: true,
+        descuzb: true,
         images: true,
         specs: true,
         isAvailable: true,
@@ -313,6 +319,8 @@ export const updateProduct = async (productID: string, data: TAddProductFormValu
         data: {
           name: data.name,
           desc: data.desc || null,
+          descrus: data.descrus || null,
+          descuzb: data.descuzb || null,
           isAvailable: data.isAvailable,
           images: data.images,
           specs: data.specifications,
@@ -331,6 +339,8 @@ export const updateProduct = async (productID: string, data: TAddProductFormValu
         data: {
           name: data.name,
           desc: data.desc || null,
+          descrus: data.descrus || null,
+          descuzb: data.descuzb || null,
           isAvailable: data.isAvailable,
           images: data.images,
           specs: data.specifications,

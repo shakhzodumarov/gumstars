@@ -64,7 +64,9 @@ const ProductListItem = ({ data, requestReload }: IProps) => {
       images: "", // These would need to be loaded from the server
       specifications: [], // These would need to be loaded from the server
       isAvailable: true, // Default value, would need to be loaded from the server
-      desc: ""
+      desc: "",
+      descrus: "",
+      descuzb: ""
     });
     setShowEdit(true);
   };

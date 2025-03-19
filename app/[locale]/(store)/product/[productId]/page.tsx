@@ -49,6 +49,8 @@ const ProductPage = () => {
                   defaultQuantity: 1,
                   name: productInfo.name,
                   shortDesc: productInfo.desc || "",
+                  shortDescrus: productInfo.descrus || "",
+                  shortDescuzb: productInfo.descuzb || "",
                 }}
               />
             ) : (

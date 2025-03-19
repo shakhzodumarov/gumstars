@@ -38,6 +38,8 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
               ...data,
               name: productResponse.res.name,
               desc: productResponse.res.desc || "",
+              descrus: productResponse.res.descrus || "",
+              descuzb: productResponse.res.descuzb || "",
               categoryID: productResponse.res.category.id,
               images: productResponse.res.images,
               specifications: productResponse.res.specs || [],
@@ -85,6 +87,22 @@ const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
         <textarea
           value={data.desc || ""}
           onChange={(e) => handleChange("desc", e.target.value)}
+          placeholder="..."
+        />
+      </div>
+      <div className={styles.formGroup}>
+        <label>Описание rus:</label>
+        <textarea
+          value={data.descrus || ""}
+          onChange={(e) => handleChange("descrus", e.target.value)}
+          placeholder="..."
+        />
+      </div>
+      <div className={styles.formGroup}>
+        <label>Описание uzb:</label>
+        <textarea
+          value={data.descuzb || ""}
+          onChange={(e) => handleChange("descuzb", e.target.value)}
           placeholder="..."
         />
       </div>

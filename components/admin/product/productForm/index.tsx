@@ -149,6 +149,34 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
           />
         </div>
         <div>
+          <span>Описания:</span>
+          <input
+            type="text"
+            value={props.descrus}
+            onChange={(e) =>
+              onChange({
+                ...props,
+                descrus: e.currentTarget.value,
+              })
+            }
+            placeholder="Описанияrus..."
+          />
+        </div>
+        <div>
+          <span>Описания:</span>
+          <input
+            type="text"
+            value={props.descuzb}
+            onChange={(e) =>
+              onChange({
+                ...props,
+                descuzb: e.currentTarget.value,
+              })
+            }
+            placeholder="Описанияuzb..."
+          />
+        </div>
+        <div>
           <span>Есть в наличии:</span>
           <div className={styles.inStockSwitch}>
             <span
