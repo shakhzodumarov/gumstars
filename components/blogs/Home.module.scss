@@ -38,6 +38,18 @@
     animation: fadeIn 1s ease-in-out 1s forwards;
     text-align: start;
   }
+
+.regular{
+  padding: 10px 50px;
+  font-size: 2rem;
+  color: #056b00;
+  margin-bottom: 20px;
+  line-height: 42px;
+  opacity: 0;
+  font-weight: 400;
+  animation: fadeIn 1s ease-in-out 1s forwards;
+  text-align: start;
+}
   
   .learnMoreButton {
     background-color: #0070f3;
@@ -75,29 +87,29 @@
 
   @media (max-width: 640px) {
     .description {
-        padding: 20px;
-        font-size: 1.2rem;
+        padding: 0px;
+        font-size: 1.8rem;
         color: #666;
         margin-bottom: 20px;
         opacity: 0;
         line-height: 22px;
         animation: fadeIn 1s ease-in-out 1s forwards;
       }
-      .runniggarun p{
-        color: #07a241;
-       width: 100%;
-       text-align: start;
-       padding: 20px 20px;
-       font-size: 1.2rem;
-       display: flex;
-       margin: 20px;
+      .regular {
+        padding: 0px;
+        font-size: 1.8rem;
+        color: #007423;
+        margin-bottom: 20px;
+        opacity: 0;
+        line-height: 22px;
+        animation: fadeIn 1s ease-in-out 1s forwards;
       }
   }
 
   .hellomother{
   
     padding: 20px;
-    width: 70%;
+    width: 90%;
     height: 90%;
     background-color: #ffffff;
     border-radius: 20px;
@@ -128,15 +140,6 @@
     opacity: 0.3;
   }
 
-  .runniggarun p{
-    color: #07a241;
-   width: 100%;
-   text-align: start;
-   padding: 20px 50px;
-   font-size: 1.6rem;
-   display: flex;
-   margin: 20px;
-  }
 
 
   @media (max-width: 440px) {
@@ -159,13 +162,6 @@
         line-height: 22px;
         animation: fadeIn 1s ease-in-out 1s forwards;
       }
-      .runniggarun p{
-        color: #07a241;
-       width: 100%;
-       text-align: start;
-       padding: 20px 20px;
-       font-size: 1.2rem;
-       display: flex;
-       margin: 20px;
-      }
+
+
   }

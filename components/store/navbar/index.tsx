@@ -23,6 +23,11 @@ const StoreNavBar = () => {
   const transparentPages = ['/'];
   const isTransparentPage = transparentPages.includes(pathname);
 
+  // Close the mobile menu when navigating to a new page
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
   useEffect(() => {
     let prevPositionY = 0;
     if (typeof window !== "undefined") prevPositionY = window.scrollY;

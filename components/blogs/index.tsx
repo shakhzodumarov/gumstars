@@ -53,13 +53,13 @@ const ServiceComponent: React.FC = () => {
             {formatText(safeText)}
           </p>
     <div className={styles.runniggarun}>
-      <p>
+      <p className={styles.regular}>
       {t('runniggarun')}
       </p>
-      <p>
+      <p className={styles.regular}>
       {t('runniggaruns')}
       </p>
-      <p>
+      <p className={styles.regular}>
       {t('runniggaruna')}
       </p>
     </div>
