@@ -88,6 +88,8 @@ export default function Home() {
               onSubmit={handleFormSubmit}
             />
           </section>
+          <br />
+          <br /><br />
           
           <section id="contact-form">
             <Contact/>
