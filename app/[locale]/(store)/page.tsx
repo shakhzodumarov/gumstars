@@ -94,6 +94,10 @@ export default function Home() {
           <section id="contact-form">
             <Contact/>
           </section>
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
         
         {/* Navigation Dots */}
