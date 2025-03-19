@@ -26,7 +26,7 @@ const Contact: React.FC = () => {
         <h2>
         {t('niggaonenine')}</h2>
         <div className={styles.social}>
-              <Link href={"https://www.instagram.com/"}><BsInstagram width={50} strokeWidth={0} /></Link>
+              <Link href={"https://www.instagram.com/alif.gum?igsh=MWFxY3FpZzlqbXNscA=="}><BsInstagram width={50} strokeWidth={0} /></Link>
               <Link href={"https://www.facebook.com/share/1UAGoXZJoF/"}><BiLogoFacebook width={50} strokeWidth={0} /></Link>
               <Link href={"https://t.me/alif_gum"}><BiLogoTelegram width={50} strokeWidth={0} /></Link>
             </div>
@@ -44,5 +44,3 @@ const Contact: React.FC = () => {
 
 export default Contact;
 
-
-///<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6765b4fa89ed04eb7369a88396047d4c1a7a675b41d292022c8d6f66c543d818&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>

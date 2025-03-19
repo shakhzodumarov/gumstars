@@ -21,10 +21,10 @@ const Footer = () => {
         
           </div>
           <div className={styles.social}>
-            <Link href={"https://www.instagram.com/"}>
+            <Link href={"https://www.instagram.com/alif.gum?igsh=MWFxY3FpZzlqbXNscA=="}>
               <InstagramIcon width={20} strokeWidth={0} />
             </Link>
-            <Link href={"https://www.facebook.com"}>
+            <Link href={"https://www.facebook.com/share/1UAGoXZJoF/"}>
               <FacebookIcon width={20} strokeWidth={0} />
             </Link>
           </div>
