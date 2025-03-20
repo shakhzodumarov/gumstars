@@ -12,6 +12,7 @@
 
   > h1{
     font-size: 4rem;
+    line-height: 40px;
   }
   > span{
     font-size: 1.6rem;
@@ -233,6 +234,7 @@
 
 @media (max-width: 320px) {
   .productBoard {
+    width: 300px;
     > h1 {
       font-size: 1.6rem;
       line-height: 2.4rem;
