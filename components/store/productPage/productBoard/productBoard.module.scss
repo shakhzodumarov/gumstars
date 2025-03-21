@@ -222,12 +222,16 @@
   .productBoard {
     display: flex;
     flex-direction: column;
+    width: fit-content;
     > h1 {
       font-size: 2rem;
       line-height: 3rem;
     }
     .price {
       font-size: 2.6rem;
+    }
+    .shortDesc{
+      width: 100%;
     }
   }
 }
