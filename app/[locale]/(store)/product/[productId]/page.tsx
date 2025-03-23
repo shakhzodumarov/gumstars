@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import All from "../../all/page";
 
+
 const ProductPage = () => {
   const t = useTranslations('HomePage');
   const router = useRouter();
@@ -84,16 +85,23 @@ const ProductPage = () => {
                     <div className={styles.specGroupHead}>
                       <h3>{spec.groupName}</h3>
                     </div>
-                    {spec.specs.map((row, index) => (
-                      <div key={index} className={styles.row}>
+
+                    <div className={styles.row}>
                         <div className={styles.leftCol}>
-                          <span>{row.name}</span>
+                          <span>{t('calory')}</span> <br /><br />
+                          <span>{t('caloryone')}</span><br /><br />
+                          <span>{t('calorytwo')}</span><br /><br />
+                          <span>{t('calorythree')}</span><br /><br />
+
                         </div>
                         <div className={styles.rightCol}>
-                          <span>{row.value}</span>
+                        <span>164 kcal</span> <br /><br />
+                          <span>100 g</span><br /><br />
+                          <span>0 g</span><br /><br />
+                          <span>100 g / 164 kcal.</span><br /><br />
                         </div>
                       </div>
-                    ))}
+
                   </section>
                 ))
               ) : (
@@ -103,7 +111,7 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
-    {/* </div> */}
+
     <div className={styles.backimgs}>
         
       </div>
@@ -116,12 +124,12 @@ export default ProductPage;
 
 
 
+// Pulpy
+// Calories : 164 kcal
 
+// Carbohydrates : 100 g
 
+// Proteins : 0 g
 
-
-
-
-
-
+// Energy value : 100 g / 164 kcal.
 
