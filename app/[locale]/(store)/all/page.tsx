@@ -243,7 +243,7 @@ export default function All() {
               </div>
 
               {/* Child Categories (only show for selected parent) */}
-              {/* {selectedParent && (
+              {selectedParent && (
                 <div className={styles.childCategories}>
                   {categories
                     .find(group => group.group.id === selectedParent)
@@ -257,7 +257,7 @@ export default function All() {
                       </div>
                     ))}
                 </div>
-              )} */}
+              )}
             </div>
 
             {/* Current filter status */}
@@ -285,7 +285,7 @@ export default function All() {
 />
                   ))
                 ) : (
-                  <p className={styles.noProducts}>{t('noProducts')}</p>
+                  <p className={styles.noProducts}></p>
                 )}
               </div>
             )}
