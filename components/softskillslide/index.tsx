@@ -8,21 +8,69 @@ const ConnectedDotsAnimation = () => {
   // State to store dot positions
   const [dots, setDots] = useState([]);
   const [pathProgress, setPathProgress] = useState(0);
-  const [canvasSize, setCanvasSize] = useState({ width: 1500, height: 500 });
+  const [canvasSize, setCanvasSize] = useState({ width: 1500, height: 600 }); // Increased height
+  const [activePopup, setActivePopup] = useState(null); // Track which popup is active
   const animationRef = useRef(null);
   const containerRef = useRef(null);
   const animationComplete = useRef(false);
 
-  // Generate fixed dots
+  // Toggle popup visibility
+  const togglePopup = (dotId) => {
+    setActivePopup(activePopup === dotId ? null : dotId);
+  };
+  
+  // Function to determine title position based on dot position to avoid lines
+  const getTitlePosition = (dot, index) => {
+    // Custom positioning for each dot according to requirements
+    const positions = [
+      dot.y + 50,  // First dot: BELOW the dot
+      dot.y - 30,  // Second dot: ABOVE the dot
+      dot.y - 30,  // Third dot: ABOVE the dot
+      dot.y + 50,  // Fourth dot: BELOW the dot
+      dot.y - 30   // Fifth dot: ABOVE the dot
+    ];
+    return positions[index] || dot.y - 30; // Default to above if not specified
+  };
+
+  // Function to determine popup position based on dot position
+  const getPopupPosition = (dot, index) => {
+    // Popup height is approximately 100px (as set in the rect element)
+    const popupHeight = 100;
+    const padding = 20; // Safety padding to ensure visibility
+    
+    // Base positions (same as original)
+    const positions = [
+      dot.y + 90,  // First dot: popup below (since title is below)
+      dot.y - 120, // Second dot: popup above (since title is above)
+      dot.y - 120, // Third dot: popup above (since title is above)
+      dot.y + 90,  // Fourth dot: popup below (since title is below)
+      dot.y - 120  // Fifth dot: popup above (since title is above)
+    ];
+    
+    // Get base position
+    let basePosition = positions[index] || dot.y - 120;
+    
+    // Ensure popup doesn't go off the canvas
+    if (basePosition < padding) {
+      // Too close to top, move it down
+      basePosition = padding;
+    } else if (basePosition + popupHeight > canvasSize.height - padding) {
+      // Too close to bottom, move it up
+      basePosition = canvasSize.height - popupHeight - padding;
+    }
+    
+    return basePosition;
+  };
+
   useEffect(() => {
     // Function to generate fixed, non-crossing dots
     const generateFixedDots = () => {
       const newDots = [
         { id: 0, x: 250, y: 150, label: t('niggaonetenr'), labels: t('niggaonetent') },
-        { id: 1, x: 1200, y: 50, label: t('niggaoneteny'), labels: t('niggaonetenu') },
-        { id: 2, x: 700, y: 100, label: t('niggaoneteni'), labels: t('niggaoneteno') },
-        { id: 3, x: 900, y: 180, label: t('niggaonetenp'), labels: t('niggasinparis') },
-        { id: 4, x: 450, y: 20, label: t('niggasinparisone'), labels: t('niggasinparistwo') }
+        { id: 1, x: 1000, y: 100, label: t('niggaoneteny'), labels: t('niggaonetenu') },
+        { id: 2, x: 700, y: 150, label: t('niggaoneteni'), labels: t('niggaoneteno') },
+        { id: 3, x: 900, y: 200, label: t('niggaonetenp'), labels: t('niggasinparis') },
+        { id: 4, x: 450, y: 100, label: t('niggasinparisone'), labels: t('niggasinparistwo') }
       ];
       
       return newDots;
@@ -35,10 +83,14 @@ const ConnectedDotsAnimation = () => {
     // Handle resize
     const handleResize = () => {
       if (containerRef.current) {
-         //@ts-ignore
+        //@ts-ignore
         const width = containerRef.current.clientWidth;
-        const height = Math.min(600, window.innerHeight - 100);
+        // Ensure enough height for popups
+        const height = Math.min(700, window.innerHeight - 100); // Increased min height for popups
         setCanvasSize({ width, height });
+        
+        // Force a re-render after resize to ensure all elements are visible
+        setDots(prevDots => [...prevDots]);
       }
     };
     
@@ -55,14 +107,14 @@ const ConnectedDotsAnimation = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, []);
+  }, [t]); // Add t as a dependency to regenerate dots when translations change
 
   // Animation effect
   useEffect(() => {
     if (dots.length === 0 || animationComplete.current) return;
     
     let startTime;
-    const duration = 8000; // 5 seconds for complete animation
+    const duration = 8000; // 8 seconds for complete animation
     
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
@@ -73,14 +125,14 @@ const ConnectedDotsAnimation = () => {
       setPathProgress(progress);
       
       if (progress < 1) {
-         //@ts-ignore
+        //@ts-ignore
         animationRef.current = requestAnimationFrame(animate);
       } else {
         // Animation is complete
         animationComplete.current = true;
       }
     };
-     //@ts-ignore
+    //@ts-ignore
     animationRef.current = requestAnimationFrame(animate);
     
     return () => {
@@ -108,9 +160,9 @@ const ConnectedDotsAnimation = () => {
       for (let i = 0; i < dots.length; i++) {
         if (!visited.has(i)) {
           const distance = Math.sqrt(
-             //@ts-ignore
+            //@ts-ignore
             Math.pow(dots[i].x - dots[lastIndex].x, 2) + 
-             //@ts-ignore
+            //@ts-ignore
             Math.pow(dots[i].y - dots[lastIndex].y, 2)
           );
           
@@ -129,10 +181,10 @@ const ConnectedDotsAnimation = () => {
     const pathCommands = [];
     path.forEach((dotIndex, index) => {
       if (index === 0) {
-         //@ts-ignore
+        //@ts-ignore
         pathCommands.push(`M ${dots[dotIndex].x} ${dots[dotIndex].y}`);
       } else {
-         //@ts-ignore
+        //@ts-ignore
         pathCommands.push(`L ${dots[dotIndex].x} ${dots[dotIndex].y}`);
       }
     });
@@ -164,9 +216,9 @@ const ConnectedDotsAnimation = () => {
       for (let i = 0; i < dots.length; i++) {
         if (!visited.has(i)) {
           const distance = Math.sqrt(
-             //@ts-ignore
+            //@ts-ignore
             Math.pow(dots[i].x - dots[lastIndex].x, 2) + 
-             //@ts-ignore
+            //@ts-ignore
             Math.pow(dots[i].y - dots[lastIndex].y, 2)
           );
           
@@ -183,7 +235,7 @@ const ConnectedDotsAnimation = () => {
     
     // Calculate points along the path
     let distanceSoFar = 0;
-     //@ts-ignore
+    //@ts-ignore
     const pathCommands = ["M " + dots[pathOrder[0]].x + " " + dots[pathOrder[0]].y];
     
     for (let i = 1; i < pathOrder.length; i++) {
@@ -191,22 +243,22 @@ const ConnectedDotsAnimation = () => {
       const toDot = dots[pathOrder[i]];
       
       const segmentLength = Math.sqrt(
-         //@ts-ignore
+        //@ts-ignore
         Math.pow(toDot.x - fromDot.x, 2) + Math.pow(toDot.y - fromDot.y, 2)
       );
       
       if (distanceSoFar + segmentLength <= currentLength) {
         // Include the whole segment
-         //@ts-ignore
+        //@ts-ignore
         pathCommands.push(`L ${toDot.x} ${toDot.y}`);
         distanceSoFar += segmentLength;
       } else {
         // Include partial segment
         const remainingLength = currentLength - distanceSoFar;
         const ratio = remainingLength / segmentLength;
-         //@ts-ignore
+        //@ts-ignore
         const partialX = fromDot.x + (toDot.x - fromDot.x) * ratio;
-         //@ts-ignore
+        //@ts-ignore
         const partialY = fromDot.y + (toDot.y - fromDot.y) * ratio;
         
         pathCommands.push(`L ${partialX} ${partialY}`);
@@ -231,9 +283,9 @@ const ConnectedDotsAnimation = () => {
       for (let i = 0; i < dots.length; i++) {
         if (!visited.has(i)) {
           const distance = Math.sqrt(
-             //@ts-ignore
-            Math.pow(dots[i].x - dots[lastIndex].x, 2) + 
-             //@ts-ignore
+            //@ts-ignore
+            Math.pow(dots[i].x - dots[lastIndex].x, 2) +
+            //@ts-ignore 
             Math.pow(dots[i].y - dots[lastIndex].y, 2)
           );
           
@@ -255,7 +307,7 @@ const ConnectedDotsAnimation = () => {
       const toDot = dots[pathOrder[i]];
       
       const segmentLength = Math.sqrt(
-         //@ts-ignore
+        //@ts-ignore
         Math.pow(toDot.x - fromDot.x, 2) + Math.pow(toDot.y - fromDot.y, 2)
       );
       
@@ -271,9 +323,9 @@ const ConnectedDotsAnimation = () => {
       <div className={styles.homeissafe}>
         <svg 
           width={canvasSize.width} 
-          height={canvasSize.height} 
-        
-          
+          height={canvasSize.height}
+          viewBox={`0 0 ${canvasSize.width} ${canvasSize.height}`}
+          preserveAspectRatio="xMidYMid meet"
         >
           {/* Animated connecting line */}
           <path
@@ -282,57 +334,106 @@ const ConnectedDotsAnimation = () => {
             stroke="#808080"
             strokeWidth="4"
             strokeLinecap="round"
+            className={styles.connectionPath}
           />
           
           {/* Dots */}
           {dots.map((dot, index) => (
-             //@ts-ignore
+            //@ts-ignore
             <g key={dot.id} >
-              
               {/* Dot */}
               <circle 
-               //@ts-ignore
+              //@ts-ignore
                 cx={dot.x}
-                 //@ts-ignore
+                //@ts-ignore
                 cy={dot.y}
                 r="18"
                 fill={index === 0 ? "#07a241" : "#07a241"}
                 stroke="#fff"
                 strokeWidth="2"
+                className={styles.dotCircle}
               />
-              <br />
-          
+
+              {/* Title with carefully positioned text */}
               <text
-               //@ts-ignore
+              //@ts-ignore
                 x={dot.x}
-                 //@ts-ignore
-                y={dot.y + 130}
+                y={getTitlePosition(dot, index)}
                 textAnchor="middle"
-                fontSize="24"
+                fontSize="22"
                 fontWeight="700"
                 fill="#07a241"
-                
-               
+                className={styles.titleText}
+                cursor="pointer"
+                //@ts-ignore
+                onClick={() => togglePopup(dot.id)}
+                style={{ pointerEvents: 'all' }}
               >
                 {/* @ts-ignore */}
                 {dot.label}
               </text>
-              <text
-               //@ts-ignore
-                x={dot.x}
-                 //@ts-ignore
-                y={dot.y + 160}
-                textAnchor="middle"
-                fontSize="13"
-                fill="#6b7280"
-   
-  
-              >
-          
-                {/* @ts-ignore */}
-                {dot.labels}
 
-              </text>
+              {/* Popup for description */}
+              {/* @ts-ignore */}
+              {activePopup === dot.id && (
+                <g>
+                  {/* Background rectangle for popup */}
+                  <rect
+                  //@ts-ignore
+                    x={dot.x - 150}
+                    y={getPopupPosition(dot, index)}
+                    width="300"
+                    height="100"
+                    rx="10"
+                    ry="10"
+                    fill="white"
+                    stroke="#07a241"
+                    strokeWidth="2"
+                    className={styles.popupBox}
+                  />
+                  
+                  {/* Description text in popup */}
+                  <foreignObject
+                  //@ts-ignore
+                    x={dot.x - 140}
+                    y={getPopupPosition(dot, index) + 10}
+                    width="280"
+                    height="80"
+                  >
+                    {/* @ts-ignore */}
+                    <div xmlns="http://www.w3.org/1999/xhtml" className={styles.popupContent}>
+                    {/* @ts-ignore */}
+                      {dot.labels}
+                    </div>
+                  </foreignObject>
+                  
+                  {/* Close button */}
+                  <circle
+                  //@ts-ignore
+                    cx={dot.x + 140}
+                    cy={getPopupPosition(dot, index) + 10}
+                    r="12"
+                    fill="#f5f5f5"
+                    stroke="#07a241"
+                    strokeWidth="1"
+                    cursor="pointer"
+                    onClick={() => setActivePopup(null)}
+                  />
+                  <text
+                  //@ts-ignore
+                    x={dot.x + 140}
+                    y={getPopupPosition(dot, index) + 14}
+                    textAnchor="middle"
+                    fontSize="16"
+                    fontWeight="bold"
+                    fill="#07a241"
+                    cursor="pointer"
+                    onClick={() => setActivePopup(null)}
+                  >
+                    ×
+                  </text>
+                </g>
+              )}
             </g>
           ))}
         </svg>

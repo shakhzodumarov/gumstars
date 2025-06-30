@@ -1,81 +1,125 @@
-/* SoftSkillsSlide.module.scss */
-
 .slideWrapper {
-    background-color: #fbe53c; /* Equivalent to bg-orange-400 */
-    width: 100%;
-    z-index: 10;
-    overflow: hidden;
-    transform: rotate(-3deg);
-    margin-top: 2.5rem; /* Equivalent to mt-10 */
-    padding: 1.25rem 0; /* Equivalent to py-5 */
-  }
-  
-  .innerWrapper {
-    background-color: white;
-    padding-top: 0.25rem; /* Equivalent to py-1 */
-  }
-  
-  .skillsList {
-    display: flex;
-    animation: slide 15s linear infinite;
-    white-space: nowrap;
-    align-items: center;
-  }
-  
-  .skillItem {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 1rem;
-  }
-  
-  .skillText {
-    display: inline-block;
-    font-size: 2rem;
-  }
-  
-  .starIcon {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    color: #ef4444; /* Equivalent to text-red-600 */
-    width: 1.5rem; /* Equivalent to w-6 */
-  }
-  
-  /* Animation for the sliding effect */
-  @keyframes slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-  
+  background-color: #fbe53c; /* Equivalent to bg-orange-400 */
+  width: 100%;
+  z-index: 10;
+  overflow: hidden;
+  transform: rotate(-3deg);
+  margin-top: 2.5rem; /* Equivalent to mt-10 */
+  padding: 1.25rem 0; /* Equivalent to py-5 */
+}
 
-  .guestbed{
-    width: 100%;
-    height: 600px;
-    // background-color: #ef4444;
-   
-  }
-  .homeissafe{
-    margin-left: 10%;
-    width: 200px;
-   
-  }
+.innerWrapper {
+  background-color: white;
+  padding-top: 0.25rem; /* Equivalent to py-1 */
+}
 
-  .guestbed h1{
-    font-size: 44px;
-    text-align: center;
-    margin-top: 20px;
+.skillsList {
+  display: flex;
+  animation: slide 15s linear infinite;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.skillItem {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.skillText {
+  display: inline-block;
+  font-size: 2rem;
+}
+
+.starIcon {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  color: #ef4444; /* Equivalent to text-red-600 */
+  width: 1.5rem; /* Equivalent to w-6 */
+}
+
+/* Animation for the sliding effect */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 
+.guestbed {
+  width: 100%;
+  height: 600px;
 
-  @media (max-width: 428px) {
-    .slideWrapper{
-      display: none;
-    }
-    .guestbed{
-display: none;
-     
-    }
-      }
+  // background-color: #ef4444;
+}
+
+.homeissafe {
+  margin-left: 10%;
+  width: 200px;
+  margin-top: 100px;
+  height: 400px;
+
+}
+
+.guestbed h1 {
+  font-size: 44px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Added styles for the popup functionality */
+.dotCircle {
+  z-index: 3;
+}
+
+.connectionPath {
+  z-index: 1;
+}
+
+.titleText {
+  transition: all 0.3s ease;
+  z-index: 5;
+  pointer-events: all !important;
+  
+  &:hover {
+    fill: #045a25;
+    cursor: pointer;
+  }
+}
+
+.popupBox {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+  z-index: 10;
+}
+
+.popupContent {
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+  padding: 20px;
+  text-align: center;
+  z-index: 100;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 428px) {
+  .slideWrapper {
+    display: none;
+  }
+  .guestbed {
+    display: none;
+  }
+}

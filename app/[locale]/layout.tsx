@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing"; // Ensure your routing object is correctly defined
-import Head from "next/head"; // Import Head for setting dynamic metadata
 import "./globals.scss";
 
 // Import custom font
