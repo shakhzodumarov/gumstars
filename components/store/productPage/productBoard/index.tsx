@@ -11,7 +11,7 @@ const ProductBoard = ({ boardData }: { boardData: TProductBoard }) => {
   const [quantity, setQuantity] = useState(defaultQuantity > 1 ? defaultQuantity : 1);
   
   const cartItemData = {
-    productId: id, 
+    productId: id,  
     quantity: quantity,
   };
 
