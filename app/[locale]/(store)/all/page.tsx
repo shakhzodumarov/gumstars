@@ -6,9 +6,7 @@ import styles from "./all.module.scss";
 import { getRecentProducts } from "@/actions/product/product";
 import { getAllCategoriesJSON } from "@/actions/category/category";
 import RecentCard from "@/components/store/common/recentCard";
-import { useTranslations } from 'next-intl';
-// import { Link } from '@/i18n/routing';
-// import CenterContent from "@/components/centercontent";
+import { useTranslations, useLocale } from 'next-intl';
 import Image from "next/image";
 
 export default function All() {
@@ -21,14 +19,41 @@ export default function All() {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const t = useTranslations('HomePage');
+  const locale = useLocale(); // Get current locale
 
+  // Translation mapping for specific categories
+  const translateCategoryName = (name: string): string => {
+    const lowerName = name.toLowerCase();
+    
+    // Translation mappings
+    const translations: { [key: string]: { ru: string; uz: string; en: string } } = {
+      'stick': {
+        en: 'Stick',
+        ru: 'Палочка',
+        uz: 'Tayoq'
+      },
+      'pillow': {
+        en: 'Pillow',
+        ru: 'Подушка',
+        uz: 'Yostiq'
+      }
+    };
 
+    // Check if the category name matches any translation key
+    for (const [key, langs] of Object.entries(translations)) {
+      if (lowerName.includes(key)) {
+        return langs[locale as 'en' | 'ru' | 'uz'] || name;
+      }
+    }
+
+    // Return original name if no translation found
+    return name;
+  };
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000); // Keep the loading state for 2 seconds
+    const timer = setTimeout(() => setIsLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +79,6 @@ export default function All() {
         } else {
           const products = productsResponse.res ?? [];
           setRecentProducts(products);
-          // Do not filter products here, let the useEffect handle it
         }
       } catch (err) {
         setError("Ошибка при загрузке данных");
@@ -100,10 +124,8 @@ export default function All() {
     if (selectedChild) {
       console.log(`Filtering by child category: ${selectedChild}`);
       
-      // Check product structure to determine how to filter
       //@ts-ignore
       filtered = recentProducts.filter(product => {
-        // Try all possible property names that might hold category ID
         const matches = 
         //@ts-ignore
           product.categoryId === selectedChild || 
@@ -128,14 +150,11 @@ export default function All() {
         console.log(`Child category IDs of parent ${selectedParent}:`, childIds);
          //@ts-ignore
         filtered = recentProducts.filter(product => {
-          // Try different possible property names for category ID
            //@ts-ignore
           const categoryId = product.categoryId || product.category_id || (product.category && product.category.id);
           
-          // Check if product belongs to any child category of selected parent
           const belongsToChild = childIds.includes(categoryId);
           
-          // Check if product directly belongs to parent category
           const belongsToParent = 
             categoryId === selectedParent || 
             //@ts-ignore
@@ -163,19 +182,17 @@ export default function All() {
   const handleParentCategoryClick = (parentId: string) => {
     console.log("Parent category clicked:", parentId);
     if (selectedParent === parentId) {
-      // If clicking the already selected parent, show all products
       setSelectedParent(null);
       setSelectedChild(null);
     } else {
       setSelectedParent(parentId);
-      setSelectedChild(null); // Reset child selection when parent changes
+      setSelectedChild(null);
     }
   };
 
   const handleChildCategoryClick = (childId: string) => {
     console.log("Child category clicked:", childId);
     if (selectedChild === childId) {
-      // Toggle off if already selected
       setSelectedChild(null);
     } else {
       setSelectedChild(childId);
@@ -189,13 +206,14 @@ export default function All() {
   };
 
   const getFilterStatus = () => {
-    const parentName = categories.find(g => g.group.id === selectedParent)?.group.name;
+    const parentGroup = categories.find(g => g.group.id === selectedParent);
+    const parentName = parentGroup?.group.name;
     const childCategory = selectedChild 
-      ? categories.find(g => g.group.id === selectedParent)?.categories.find(c => c.category.id === selectedChild)?.category
+      ? parentGroup?.categories.find(c => c.category.id === selectedChild)?.category
       : null;
     
-    if (selectedParent && selectedChild) {
-      return `${parentName} › ${childCategory?.name}`;
+    if (selectedParent && selectedChild && childCategory) {
+      return `${parentName} › ${translateCategoryName(childCategory.name)}`;
     } else if (selectedParent) {
       return `${parentName}`;
     } else {
@@ -205,103 +223,92 @@ export default function All() {
 
   return (
     <div>
-       {isLoading ? (
+      {isLoading ? (
         <div className={styles.loadingScreen}>
-        <div className={styles.radiatingWaves}></div>
-        <div className={styles.logoContainer}>
-          <img src="/images/images/stars.png" alt="Logo" className={styles.spinningLogo} />
+          <div className={styles.radiatingWaves}></div>
+          <div className={styles.logoContainer}>
+            <img src="/images/images/stars.png" alt="Logo" className={styles.spinningLogo} />
+          </div>
         </div>
-      </div>
-
-       ) : (<div className={styles.tyler}>
-      {/* <CenterContent /> */}
-      <Image
-      src={"/images/images/image.png"}
-      alt="img"
-      width={600}
-      height={600}
-      className={styles.disco}
-      />
-      <div className={styles.homePageContainer}>
-        {isSplashVisible ? (
-          <div className={styles.splashScreen}>Loading...</div>
-        ) : (
-          <div className={styles.contentWrapper}>
-            {/* Category Filters */}
-            <div className={styles.categoryFilters}>
-              
-              <div className={styles.parentCategories}>
-                {categories.map((groupItem) => (
-                  <div
-                    key={groupItem.group.id}
-                    className={`${styles.categoryItem} ${selectedParent === groupItem.group.id ? styles.selected : ''}`}
-                    onClick={() => handleParentCategoryClick(groupItem.group.id)}
-                  >
-                    {groupItem.group.name}
-                  </div>
-                ))}
-              </div>
-
-              {/* Child Categories (only show for selected parent) */}
-              {selectedParent && (
-                <div className={styles.childCategories}>
-                  {categories
-                    .find(group => group.group.id === selectedParent)
-                    ?.categories.map(categoryItem => (
+      ) : (
+        <div className={styles.tyler}>
+          <Image
+            src={"/images/images/image.png"}
+            alt="img"
+            width={600}
+            height={600}
+            className={styles.disco}
+          />
+          <div className={styles.homePageContainer}>
+            {isSplashVisible ? (
+              <div className={styles.splashScreen}>Loading...</div>
+            ) : (
+              <div className={styles.contentWrapper}>
+                {/* Category Filters */}
+                <div className={styles.categoryFilters}>
+                  <div className={styles.parentCategories}>
+                    {categories.map((groupItem) => (
                       <div
-                        key={categoryItem.category.id}
-                        className={`${styles.categoryItem} ${selectedChild === categoryItem.category.id ? styles.selected : ''}`}
-                        onClick={() => handleChildCategoryClick(categoryItem.category.id)}
+                        key={groupItem.group.id}
+                        className={`${styles.categoryItem} ${selectedParent === groupItem.group.id ? styles.selected : ''}`}
+                        onClick={() => handleParentCategoryClick(groupItem.group.id)}
                       >
-                        {categoryItem.category.name}
+                        {groupItem.group.name}
                       </div>
                     ))}
+                  </div>
+
+                  {/* Child Categories (only show for selected parent) */}
+                  {selectedParent && (
+                    <div className={styles.childCategories}>
+                      {categories
+                        .find(group => group.group.id === selectedParent)
+                        ?.categories.map(categoryItem => (
+                          <div
+                            key={categoryItem.category.id}
+                            className={`${styles.categoryItem} ${selectedChild === categoryItem.category.id ? styles.selected : ''}`}
+                            onClick={() => handleChildCategoryClick(categoryItem.category.id)}
+                          >
+                            {translateCategoryName(categoryItem.category.name)}
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* Current filter status */}
-            <div className={styles.filterStatus}>
-              {getFilterStatus()}
-              {filteredProducts.length > 0 && (
-                <span className={styles.resultsCount}> ({filteredProducts.length})</span>
-              )}
-            </div>
+                {/* Current filter status */}
+                <div className={styles.filterStatus}>
+                  {getFilterStatus()}
+                  {filteredProducts.length > 0 && (
+                    <span className={styles.resultsCount}> ({filteredProducts.length})</span>
+                  )}
+                </div>
 
-            {/* Product Display */}
-            {error ? (
-              <div className={styles.error}>{error}</div>
-            ) : (
-              <div className={styles.cardsWrapper}>
-                {filteredProducts.length > 0 ? (
-                  filteredProducts.map((product, index) => (
-                    <RecentCard
-  key={product.id || index}
-  
-  imgUrl={product.images}
-  name={product.name}
-  isAvailable={product.isAvailable}
-  url={"/product/" + product.id}
-/>
-                  ))
+                {/* Product Display */}
+                {error ? (
+                  <div className={styles.error}>{error}</div>
                 ) : (
-                  <p className={styles.noProducts}></p>
+                  <div className={styles.cardsWrapper}>
+                    {filteredProducts.length > 0 ? (
+                      filteredProducts.map((product, index) => (
+                        <RecentCard
+                          key={product.id || index}
+                          imgUrl={product.images}
+                          name={product.name}
+                          isAvailable={product.isAvailable}
+                          url={"/product/" + product.id}
+                        />
+                      ))
+                    ) : (
+                      <p className={styles.noProducts}></p>
+                    )}
+                  </div>
                 )}
               </div>
             )}
           </div>
-        )}
-      </div>
-      {/* <Image
-      src={"/images/images/image.png"}
-      alt="img"
-      width={600}
-      height={600}
-      className={styles.discos}
-      /> */}
-    </div>)}
-
-
+        </div>
+      )}
     </div>
   );
 }

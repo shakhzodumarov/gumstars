@@ -5,15 +5,13 @@ import { CldUploadWidget } from 'next-cloudinary';
 import Image from 'next/image';
 
 interface ImageUploaderProps {
-  images: string | null; // Single image URL instead of an array
-  onChange: (updatedProps: { images: string | null }) => void; // Update to pass a single image, or null for removal
+  images: string | null;
+  onChange: (updatedProps: { images: string | null }) => void;
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = (props) => {
-  // Initialize with the passed image
   const [image, setImage] = useState<string | null>(props.images);
   
-  // Sync with external props changes
   useEffect(() => {
     console.log("ImageUploader received props.images:", props.images);
     setImage(props.images);
@@ -22,16 +20,17 @@ const ImageUploader: React.FC<ImageUploaderProps> = (props) => {
   const handleUploadSuccess = (result: any) => {
     console.log("Upload Success - Full Result:", result);
     
-    // Extract the image URL from the result
     const newImage = result.info?.secure_url;
     console.log('Extracted Image URL:', newImage);
     
     if (newImage) {
       setImage(newImage);
       
-      // IMPORTANT: Notify parent component about the new image
-      console.log('Updating parent with new image:', newImage);
-      props.onChange({ images: newImage });
+      // Use setTimeout to ensure this happens after any other state updates
+      setTimeout(() => {
+        console.log('Calling onChange with new image:', newImage);
+        props.onChange({ images: newImage });
+      }, 0);
     } else {
       console.error("No image URL returned from Cloudinary!");
     }
@@ -40,8 +39,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = (props) => {
   const handleRemoveImage = () => {
     console.log('Removing Image...');
     setImage(null);
-    
-    // IMPORTANT: Notify parent component about the removal
     props.onChange({ images: null });
   };
 
@@ -54,23 +51,34 @@ const ImageUploader: React.FC<ImageUploaderProps> = (props) => {
             alt="Uploaded preview" 
             width={100} 
             height={100}
-            style={{ objectFit: 'cover', marginBottom: '8px' }}
+            style={{ objectFit: 'cover', marginBottom: '8px', borderRadius: '4px' }}
           />
           <div>
-            <Button text="Remove" onClick={handleRemoveImage} />
+            <Button text="Remove Image" onClick={handleRemoveImage} />
           </div>
         </div>
       ) : (
-        <p>No image uploaded yet.</p>
+        <p style={{ fontSize: '14px', color: '#666' }}>No image uploaded yet.</p>
       )}
       
       <CldUploadWidget
-        onUpload={handleUploadSuccess}
+        onSuccess={handleUploadSuccess}
         uploadPreset="pulpyofficial"
-        options={{ maxFiles: 2 }} // Only allow one image
+        options={{ 
+          maxFiles: 1,
+          resourceType: 'image',
+          clientAllowedFormats: ['png', 'jpg', 'jpeg', 'webp'],
+          maxImageFileSize: 5000000,
+        }}
       >
         {({ open }) => (
-          <Button text="Upload" onClick={open} />
+          <Button 
+            text={image ? "Change Image" : "Upload Image"} 
+            onClick={() => {
+              console.log('Upload button clicked');
+              open();
+            }} 
+          />
         )}
       </CldUploadWidget>
     </div>

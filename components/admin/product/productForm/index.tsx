@@ -5,7 +5,7 @@ import ImageUploader from '@/components/services/ImageUploader';
 import { TDropDown } from "@/types/uiElements";
 import DropDownList from "@/components/UI/dropDown";
 import Button from "@/components/UI/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getAllCategoriesJSON } from "@/actions/category/category";
 import { TGroupJSON } from "@/types/categories";
 import { getCategorySpecs } from "@/actions/category/specifications";
@@ -27,12 +27,10 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
   const [selectedCategoryListIndex, setSelectedCategoryListIndex] = useState(0);
   const [categorySpecs, setCategorySpecs] = useState<SpecGroup[]>([]);
   
-  // Console log initial props to see what we're working with
   useEffect(() => {
     console.log("Form values on mount:", props);
   }, []);
 
-  // Fetch categories on mount
   useEffect(() => {
     const fetchCategories = async () => {
       const result = await getAllCategoriesJSON();
@@ -44,7 +42,6 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
     fetchCategories();
   }, []);
 
-  // Convert category data into dropdown list format
   const convertJSONtoDropdownList = (json: TGroupJSON[]): TDropDown[] => {
     const dropDownData: TDropDown[] = [categoryListFirstItem];
     json.forEach((group) => {
@@ -68,7 +65,6 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
     return dropDownData;
   };
 
-  // Handle category change
   const handleCategoryChange = (index: number) => {
     setSelectedCategoryListIndex(index);
     if (index === 0) {
@@ -83,7 +79,6 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
     }
   };
 
-  // Fetch specifications for the selected category
   const getSpecGroup = async (categoryID: string) => {
     const response = await getCategorySpecs(categoryID);
     if (response.res) {
@@ -103,19 +98,23 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
     }
   };
 
-  // Handle image change from ImageUploader - THIS IS THE CRITICAL PART
-  const handleImageChange = (updatedProps: { images: string | null }) => {
+  // PROPERLY FIXED: Use useCallback to memoize and prevent stale closures
+  const handleImageChange = useCallback((updatedProps: { images: string | null }) => {
+    console.log("=== IMAGE CHANGE HANDLER ===");
     console.log("Image received from uploader:", updatedProps.images);
     
-    // Update the form values with the new image string
-    const updatedFormValues = {
-      ...props,
-      images: updatedProps.images || "" // Convert null to empty string if needed
-    };
-    
-    console.log("Updating form with new values:", updatedFormValues);
-    onChange(updatedFormValues);
-  };
+    // Use functional update to get the latest state
+    //@ts-ignore
+    onChange((prevValues: TAddProductFormValues) => {
+      console.log("Previous form values:", prevValues);
+      const updatedFormValues = {
+        ...prevValues,
+        images: updatedProps.images || ""
+      };
+      console.log("Updated form values:", updatedFormValues);
+      return updatedFormValues;
+    });
+  }, [onChange]);
 
   return (
     <div className={styles.productForm}>
@@ -149,7 +148,7 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
           />
         </div>
         <div>
-          <span>Описания:</span>
+          <span>Описания (RUS):</span>
           <input
             type="text"
             value={props.descrus}
@@ -159,11 +158,11 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
                 descrus: e.currentTarget.value,
               })
             }
-            placeholder="Описанияrus..."
+            placeholder="Описания rus..."
           />
         </div>
         <div>
-          <span>Описания:</span>
+          <span>Описания (UZB):</span>
           <input
             type="text"
             value={props.descuzb}
@@ -173,7 +172,7 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
                 descuzb: e.currentTarget.value,
               })
             }
-            placeholder="Описанияuzb..."
+            placeholder="Описания uzb..."
           />
         </div>
         <div>
@@ -196,11 +195,16 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
         <div>
           <span>Изображения:</span>
           <ImageUploader
-            images={props.images || null} // Pass the current image from form values
-            onChange={handleImageChange} // Handle image change
+            images={props.images || null}
+            onChange={handleImageChange}
           />
-          <div style={{ marginTop: '8px', fontSize: '12px', color: '#666' }}>
-            Current image URL: {props.images || "(none)"}
+          <div style={{ 
+            marginTop: '8px', 
+            fontSize: '12px', 
+            color: props.images ? '#059669' : '#dc2626',
+            fontWeight: '500' 
+          }}>
+            {props.images ? `✓ Image saved: ${props.images.substring(0, 50)}...` : "⚠ No image uploaded"}
           </div>
         </div>
         <div>
@@ -230,7 +234,7 @@ const ProductForm = ({ formValues: props, onChange }: IProps) => {
                       <span>{spec}</span>
                       <input
                         type="text"
-                        value={props.specifications[groupIndex]?.specValues[specIndex]}
+                        value={props.specifications[groupIndex]?.specValues[specIndex] || ""}
                         onChange={(e) => {
                           const newSpecifications = [...props.specifications];
                           newSpecifications[groupIndex].specValues[specIndex] = e.currentTarget.value;
