@@ -1,12 +1,12 @@
 "use client";
-import { deleteProduct, updateProduct } from "@/actions/product/product";
+import { deleteProduct, updateProduct, getOneProduct } from "@/actions/product/product";
 import styles from "./productListItem.module.scss";
 
 import Button from "@/components/UI/button";
 import Popup from "@/components/UI/popup";
 import { TAddProductFormValues, TProductListItem } from "@/types/product";
-import { useState } from "react";
-import EditProduct from "./editProduct"; // You'll need to create this component
+import { useState, useCallback } from "react";
+import EditProduct from "./editProduct";
 
 interface IProps {
   data: TProductListItem;
@@ -41,43 +41,118 @@ const ProductListItem = ({ data, requestReload }: IProps) => {
       return;
     }
     
+    console.log("=== UPDATING PRODUCT ===");
+    console.log("Product data being sent:", productData);
+    
+    if (!productData.images) {
+      setErrorMsg("Please upload an image before submitting!");
+      return;
+    }
+    
+    if (!productData.name) {
+      setErrorMsg("Please enter a product name!");
+      return;
+    }
+    
+    if (!productData.categoryID) {
+      setErrorMsg("Please select a category!");
+      return;
+    }
+    
     setIsLoading(true);
     const response = await updateProduct(data.id, productData);
     
     if (response.error) {
       setIsLoading(false);
       setErrorMsg(response.error);
-    } else {
+      console.error("Error updating product:", response.error);
+    } else if (response.res) {
+      console.log("Product updated successfully:", response.res);
       setIsLoading(false);
       setErrorMsg("");
       setShowEdit(false);
+      setProductData(null);
       requestReload();
     }
   };
 
   const loadProductData = async () => {
-    // You might want to fetch the complete product data here
-    // For now we'll just use the existing data and add required fields
-    setProductData({
-      name: data.name,
-      categoryID: data.category.id,
-      images: "", // These would need to be loaded from the server
-      specifications: [], // These would need to be loaded from the server
-      isAvailable: true, // Default value, would need to be loaded from the server
-      desc: "",
-      descrus: "",
-      descuzb: ""
-    });
-    setShowEdit(true);
+    setIsLoading(true);
+    setErrorMsg("");
+    
+    try {
+      // Fetch the complete product data using existing getOneProduct
+      const response = await getOneProduct(data.id);
+      
+      if (response.error) {
+        setErrorMsg(response.error);
+        setIsLoading(false);
+        return;
+      }
+      
+      if (response.res) {
+        const product = response.res;
+        
+        console.log("Loaded product data:", product);
+        
+        // Convert the product data to the form format
+        // Note: getOneProduct returns category: { id, parentID } so we use category.id
+        const formData: TAddProductFormValues = {
+          name: product.name,
+          desc: product.desc || "",
+          descrus: product.descrus || "",
+          descuzb: product.descuzb || "",
+          categoryID: product.category.id, // Get categoryID from category.id
+          images: product.images || "",
+          specifications: product.specs || [], // specs is already in ProductSpec[] format
+          isAvailable: product.isAvailable
+        };
+        
+        console.log("Formatted form data:", formData);
+        
+        setProductData(formData);
+        setShowEdit(true);
+      }
+    } catch (error) {
+      console.error("Error loading product:", error);
+      setErrorMsg("Failed to load product data");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  // Use useCallback to ensure stable reference for onChange
+  const handleProductDataChange = useCallback((newData: TAddProductFormValues | ((prev: TAddProductFormValues) => TAddProductFormValues)) => {
+    console.log("Product data change in ProductListItem:", newData);
+    
+    if (typeof newData === 'function') {
+      setProductData(prevData => {
+        if (!prevData) return prevData;
+        const updated = newData(prevData);
+        console.log("Functional update - previous:", prevData, "updated:", updated);
+        return updated;
+      });
+    } else {
+      console.log("Direct update:", newData);
+      setProductData(newData);
+    }
+  }, []);
 
   return (
     <div className={styles.productListItem}>
       <span className={styles.name}>{data.name}</span>
       <span className={styles.category}>{data.category.name}</span>
       <div>
-        <Button text="Редактировать" onClick={loadProductData} />
-        <Button text="Удалить" onClick={() => setShowDelete(true)} />
+        <Button 
+          text={isLoading && !showEdit && !showDelete ? "Загрузка..." : "Редактировать"} 
+          onClick={loadProductData}
+          disabled={isLoading}
+        />
+        <Button 
+          text="Удалить" 
+          onClick={() => setShowDelete(true)}
+          disabled={isLoading}
+        />
       </div>
       
       {showDelete && (
@@ -87,7 +162,7 @@ const ProductListItem = ({ data, requestReload }: IProps) => {
           isLoading={isLoading}
           onCancel={() => setShowDelete(false)}
           onClose={() => setShowDelete(false)}
-          onSubmit={() => handleDelete()}
+          onSubmit={handleDelete}
           cancelBtnText="НЕТ"
           confirmBtnText="ДА"
         />
@@ -99,14 +174,23 @@ const ProductListItem = ({ data, requestReload }: IProps) => {
             <EditProduct
               data={productData}
               errorMsg={errorMsg}
-              onChange={setProductData}
+              onChange={handleProductDataChange}
             />
           }
           width="600px"
           isLoading={isLoading}
-          onCancel={() => setShowEdit(false)}
-          onClose={() => setShowEdit(false)}
+          onCancel={() => {
+            setShowEdit(false);
+            setProductData(null);
+            setErrorMsg("");
+          }}
+          onClose={() => {
+            setShowEdit(false);
+            setProductData(null);
+            setErrorMsg("");
+          }}
           onSubmit={handleEdit}
+          confirmBtnText="Сохранить изменения"
           title={`Редактировать продукт: ${data.name}`}
         />
       )}

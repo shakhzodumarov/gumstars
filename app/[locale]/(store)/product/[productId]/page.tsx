@@ -32,6 +32,23 @@ const ProductPage = () => {
     getProductFromDB();
   }, [productId, router]);
 
+  // Helper function to get spec value by index - FIXED VERSION
+  const getSpecValue = (specGroupIndex: number, specValueIndex: number): string => {
+    if (!productInfo || !productInfo.specifications || !productInfo.specifications[specGroupIndex]) {
+      return "N/A";
+    }
+    
+    const specGroup = productInfo.specifications[specGroupIndex];
+    
+    // Check if specs array exists and has the required index
+    if (!specGroup.specs || !specGroup.specs[specValueIndex]) {
+      return "N/A";
+    }
+    
+    // Return the value property from the spec object
+    return specGroup.specs[specValueIndex].value || "N/A";
+  };
+
   return (
     <div>
       <div className={styles.backimg}>
@@ -92,13 +109,13 @@ const ProductPage = () => {
                           <span>{t('caloryone')}</span><br /><br />
                           <span>{t('calorytwo')}</span><br /><br />
                           <span>{t('calorythree')}</span><br /><br />
-
                         </div>
                         <div className={styles.rightCol}>
-                        <span>164 kcal</span> <br /><br />
-                          <span>100 g</span><br /><br />
-                          <span>0 g</span><br /><br />
-                          <span>100 g / 164 kcal.</span><br /><br />
+                          {/* Display actual spec values from database */}
+                          <span>{getSpecValue(index, 0)}</span> <br /><br />
+                          <span>{getSpecValue(index, 1)}</span><br /><br />
+                          <span>{getSpecValue(index, 2)}</span><br /><br />
+                          <span>{getSpecValue(index, 3)}</span><br /><br />
                         </div>
                       </div>
 
@@ -121,15 +138,3 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
-
-
-
-// Pulpy
-// Calories : 164 kcal
-
-// Carbohydrates : 100 g
-
-// Proteins : 0 g
-
-// Energy value : 100 g / 164 kcal.
-

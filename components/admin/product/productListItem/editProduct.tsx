@@ -1,175 +1,307 @@
 "use client";
-import { useEffect, useState } from "react";
-import styles from "./editProduct.module.scss";
+import { useEffect, useState, useCallback } from "react";
+import styles from "../productForm/productForm.module.scss"; // Using the same styles as productForm
 import { TAddProductFormValues } from "@/types/product";
-import { getAllCategories } from "@/actions/category/category"; // Assuming you have this
-import { getOneProduct } from "@/actions/product/product";
+import { getAllCategoriesJSON } from "@/actions/category/category";
+import { TGroupJSON } from "@/types/categories";
+import { getCategorySpecs } from "@/actions/category/specifications";
+import { SpecGroup } from "@prisma/client";
+import { TDropDown } from "@/types/uiElements";
+import DropDownList from "@/components/UI/dropDown";
+import ImageUploader from '@/components/services/ImageUploader';
+
+const categoryListFirstItem: TDropDown = {
+  text: "Select A Category....",
+  value: "",
+};
 
 interface IProps {
   data: TAddProductFormValues;
   errorMsg: string;
-  onChange: (data: TAddProductFormValues) => void;
+  // FIXED: Accept both direct values and functional updates
+  onChange: (data: TAddProductFormValues | ((prev: TAddProductFormValues) => TAddProductFormValues)) => void;
 }
 
 const EditProduct = ({ data, errorMsg, onChange }: IProps) => {
-  const [categories, setCategories] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [fullProductData, setFullProductData] = useState<any>(null);
+  const [categoryList, setCategoryList] = useState<TDropDown[]>([categoryListFirstItem]);
+  const [selectedCategoryListIndex, setSelectedCategoryListIndex] = useState(0);
+  const [categorySpecs, setCategorySpecs] = useState<SpecGroup[]>([]);
+  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch categories for the dropdown
-        const categoriesResponse = await getAllCategories();
-        if (categoriesResponse.res) {
-          setCategories(categoriesResponse.res);
-        }
+    const fetchCategories = async () => {
+      const result = await getAllCategoriesJSON();
+      if (result.res) {
+        const dropdownList = convertJSONtoDropdownList(result.res);
+        setCategoryList(dropdownList);
         
-        // If we have more complete product data, set it here
-        // This assumes you have a way to get the complete product by ID
-        if (data && data.name) {
-          //@ts-ignore
-          const productResponse = await getOneProduct(data.id);
-          if (productResponse.res) {
-            setFullProductData(productResponse.res);
-            
-            // Update the form data with the complete product info
-            onChange({
-              ...data,
-              name: productResponse.res.name,
-              desc: productResponse.res.desc || "",
-              descrus: productResponse.res.descrus || "",
-              descuzb: productResponse.res.descuzb || "",
-              categoryID: productResponse.res.category.id,
-              images: productResponse.res.images,
-              specifications: productResponse.res.specs || [],
-              isAvailable: productResponse.res.isAvailable
-            });
+        // Find the index of the current category
+        if (data.categoryID) {
+          const index = dropdownList.findIndex(item => item.value === data.categoryID);
+          if (index !== -1) {
+            setSelectedCategoryListIndex(index);
+            // Load specs for the current category
+            getSpecGroup(data.categoryID);
           }
         }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
       }
+      setIsLoadingCategories(false);
     };
 
-    fetchData();
+    fetchCategories();
   }, []);
 
-  const handleChange = (field: keyof TAddProductFormValues, value: any) => {
-    onChange({
-      ...data,
-      [field]: value,
+  const convertJSONtoDropdownList = (json: TGroupJSON[]): TDropDown[] => {
+    const dropDownData: TDropDown[] = [categoryListFirstItem];
+    json.forEach((group) => {
+      dropDownData.push({
+        text: group.group.name,
+        value: group.group.id,
+      });
+      group.categories.forEach((category) => {
+        dropDownData.push({
+          text: `${group.group.name} - ${category.category.name}`,
+          value: category.category.id,
+        });
+        category.subCategories.forEach((sub) => {
+          dropDownData.push({
+            text: `${group.group.name} - ${category.category.name} - ${sub.name}`,
+            value: sub.id,
+          });
+        });
+      });
     });
+    return dropDownData;
   };
 
-  if (loading) {
-    return <div>Загрузка...</div>;
+  const handleCategoryChange = (index: number) => {
+    setSelectedCategoryListIndex(index);
+    if (index === 0) {
+      onChange({
+        ...data,
+        specifications: [],
+        categoryID: "",
+      });
+      setCategorySpecs([]);
+    } else {
+      getSpecGroup(categoryList[index].value);
+    }
+  };
+
+  const getSpecGroup = async (categoryID: string) => {
+    const response = await getCategorySpecs(categoryID);
+    if (response.res) {
+      setCategorySpecs(response.res);
+      
+      // If specifications already exist, keep them; otherwise initialize empty
+      if (!data.specifications || data.specifications.length === 0) {
+        const specArray = response.res.map((item) => ({
+          specGroupID: item.id,
+          specValues: item.specs.map(() => ""),
+        }));
+        
+        onChange({
+          ...data,
+          specifications: specArray,
+          categoryID: categoryID,
+        });
+      } else {
+        // Update categoryID but keep existing specifications
+        onChange({
+          ...data,
+          categoryID: categoryID,
+        });
+      }
+    }
+  };
+
+  // FIXED: Now TypeScript won't complain about functional updates
+  const handleImageChange = useCallback((updatedProps: { images: string | null }) => {
+    console.log("Image change in EditProduct:", updatedProps.images);
+    
+    // Using functional update to ensure we get the latest state
+    onChange((prevValues: TAddProductFormValues) => {
+      const updatedFormValues = {
+        ...prevValues,
+        images: updatedProps.images || ""
+      };
+      console.log("Updated form values in EditProduct:", updatedFormValues);
+      return updatedFormValues;
+    });
+  }, [onChange]);
+
+  if (isLoadingCategories) {
+    return <div style={{ padding: '20px' }}>Загрузка...</div>;
   }
 
   return (
-    <div className={styles.editProduct}>
-      {errorMsg && <p className={styles.error}>{errorMsg}</p>}
-      
-      <div className={styles.formGroup}>
-        <label>Название:</label>
-        <input
-          type="text"
-          value={data.name}
-          onChange={(e) => handleChange("name", e.target.value)}
-          placeholder="..."
-        />
-      </div>
-      
-      <div className={styles.formGroup}>
-        <label>Описание:</label>
-        <textarea
-          value={data.desc || ""}
-          onChange={(e) => handleChange("desc", e.target.value)}
-          placeholder="..."
-        />
-      </div>
-      <div className={styles.formGroup}>
-        <label>Описание rus:</label>
-        <textarea
-          value={data.descrus || ""}
-          onChange={(e) => handleChange("descrus", e.target.value)}
-          placeholder="..."
-        />
-      </div>
-      <div className={styles.formGroup}>
-        <label>Описание uzb:</label>
-        <textarea
-          value={data.descuzb || ""}
-          onChange={(e) => handleChange("descuzb", e.target.value)}
-          placeholder="..."
-        />
-      </div>
-      
-      <div className={styles.formGroup}>
-        <label>Категория:</label>
-        <select
-          value={data.categoryID}
-          onChange={(e) => handleChange("categoryID", e.target.value)}
-          
-        >
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      
-      <div className={styles.formGroup}>
-        <label>Доступность:</label>
-        <input
-          type="checkbox"
-          checked={data.isAvailable}
-          onChange={(e) => handleChange("isAvailable", e.target.checked)}
-          placeholder="..."
-        />
-      </div>
-      
-      {/* Images section */}
-      <div className={styles.formGroup}>
-        <label>Изображения:</label>
-        <div className={styles.imagesList}>
-          {/* @ts-ignore */}
-          {data.images && data.images.map((img, index) => (
-            <div key={index} className={styles.imageItem}>
-              <img src={img} alt={`Product ${index}`} width="50" height="50" />
-              <button
-                type="button"
-                onClick={() => {
-                  const newImages = data.images;
-                  //@ts-ignore
-                  newImages.splice(index, 1);
-                  handleChange("images", newImages);
-                }}
-              >
-                Удалить
-              </button>
-            </div>
-          ))}
+    <div className={styles.productForm}>
+      {errorMsg && (
+        <div style={{ 
+          color: '#dc2626', 
+          marginBottom: '16px', 
+          padding: '12px', 
+          backgroundColor: '#fee2e2', 
+          borderRadius: '6px',
+          fontSize: '14px'
+        }}>
+          {errorMsg}
         </div>
-        {/* Image upload functionality would go here */}
-      </div>
-      
-      {/* Specifications editing would be more complex - basic implementation: */}
-      <div className={styles.formGroup}>
-        <label>Технические характеристики:</label>
-        {data.specifications && data.specifications.map((spec, index) => (
-          <div key={index} className={styles.specGroup}>
-            <p>Group ID: {spec.specGroupID}</p>
-            <ul>
-              {spec.specValues.map((value, idx) => (
-                <li key={idx}>{value}</li>
-              ))}
-            </ul>
+      )}
+
+      <div className={styles.nameAndCat}>
+        <div>
+          <span>название:</span>
+          <input
+            type="text"
+            value={data.name}
+            placeholder="название ..."
+            onChange={(e) =>
+              onChange({
+                ...data,
+                name: e.currentTarget.value,
+              })
+            }
+          />
+        </div>
+
+        <div>
+          <span>Описания:</span>
+          <input
+            type="text"
+            value={data.desc || ""}
+            onChange={(e) =>
+              onChange({
+                ...data,
+                desc: e.currentTarget.value,
+              })
+            }
+            placeholder="Описания..."
+          />
+        </div>
+
+        <div>
+          <span>Описания (RUS):</span>
+          <input
+            type="text"
+            value={data.descrus || ""}
+            onChange={(e) =>
+              onChange({
+                ...data,
+                descrus: e.currentTarget.value,
+              })
+            }
+            placeholder="Описания rus..."
+          />
+        </div>
+
+        <div>
+          <span>Описания (UZB):</span>
+          <input
+            type="text"
+            value={data.descuzb || ""}
+            onChange={(e) =>
+              onChange({
+                ...data,
+                descuzb: e.currentTarget.value,
+              })
+            }
+            placeholder="Описания uzb..."
+          />
+        </div>
+
+        <div>
+          <span>Есть в наличии:</span>
+          <div className={styles.inStockSwitch}>
+            <span
+              className={data.isAvailable ? styles.available : ""}
+              onClick={() => onChange({ ...data, isAvailable: true })}
+            >
+              В наличии
+            </span>
+            <span
+              className={!data.isAvailable ? styles.notAvailable : ""}
+              onClick={() => onChange({ ...data, isAvailable: false })}
+            >
+              Нет в наличии
+            </span>
           </div>
-        ))}
+        </div>
+
+        <div>
+          <span>Изображения:</span>
+          <ImageUploader
+            images={data.images || null}
+            onChange={handleImageChange}
+          />
+          <div style={{ 
+            marginTop: '8px', 
+            fontSize: '12px', 
+            color: data.images ? '#059669' : '#dc2626',
+            fontWeight: '500' 
+          }}>
+            {data.images ? `✓ Image saved: ${data.images.substring(0, 50)}...` : "⚠ No image uploaded"}
+          </div>
+        </div>
+
+        <div>
+          <span>Категория</span>
+          {categoryList.length > 1 ? (
+            <DropDownList
+              data={categoryList}
+              width="430px"
+              selectedIndex={selectedCategoryListIndex}
+              onChange={handleCategoryChange}
+            />
+          ) : (
+            <span>Loading categories...</span>
+          )}
+        </div>
+      </div>
+
+      <div className={styles.specs}>
+        <span>Спецификации:</span>
+        <div className={styles.specGroups}>
+          {categorySpecs.length > 0 ? (
+            <>
+              {categorySpecs.map((specGroup, groupIndex) => (
+                <div className={styles.specGroupRow} key={specGroup.id}>
+                  <span className={styles.header}>{specGroup.title}</span>
+                  {specGroup.specs.map((spec, specIndex) => (
+                    <div className={styles.specRow} key={specIndex}>
+                      <span>{spec}</span>
+                      <input
+                        type="text"
+                        value={data.specifications[groupIndex]?.specValues[specIndex] || ""}
+                        onChange={(e) => {
+                          const newSpecifications = [...data.specifications];
+                          
+                          // Ensure the specification group exists
+                          if (!newSpecifications[groupIndex]) {
+                            newSpecifications[groupIndex] = {
+                              specGroupID: specGroup.id,
+                              specValues: specGroup.specs.map(() => "")
+                            };
+                          }
+                          
+                          newSpecifications[groupIndex].specValues[specIndex] = e.currentTarget.value;
+                          
+                          onChange({
+                            ...data,
+                            specifications: newSpecifications
+                          });
+                        }}
+                        placeholder="..."
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </>
+          ) : (
+            <span>Выберите категорию чтобы увидеть спецификации</span>
+          )}
+        </div>
       </div>
     </div>
   );

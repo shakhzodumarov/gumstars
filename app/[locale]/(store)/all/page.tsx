@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { TProductRecentItem } from "@/types/product";
-import { TGroupJSON, TCategory } from "@/types/categories";
+import { TGroupJSON } from "@/types/categories";
 import styles from "./all.module.scss";
 import { getRecentProducts } from "@/actions/product/product";
 import { getAllCategoriesJSON } from "@/actions/category/category";
@@ -27,9 +27,14 @@ export default function All() {
     
     // Translation mappings
     const translations: { [key: string]: { ru: string; uz: string; en: string } } = {
+      'mix': {
+        en: 'Mix',
+        ru: 'Микс',
+        uz: 'Mix'
+      },
       'stick': {
         en: 'Stick',
-        ru: 'Палочка',
+        ru: 'Пластинка',
         uz: 'Tayoq'
       },
       'pillow': {
